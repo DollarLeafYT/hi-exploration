@@ -1,0 +1,353 @@
+<p><!DOCTYPE html> <html lang=&quot;en&quot;> <head>  <meta charset=&quot;UTF-8&quot;>  <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>  <title>Saying Hi</title>  <!-- Importing a clean modern font from Google Fonts -->  <link href=&quot;https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&amp;display=swap&quot; rel=&quot;stylesheet&quot;>  <style>  /* Reset default styles */  * {  margin: 0;  padding: 0;  box-sizing: border-box;  }</p>
+
+<p> /* Full screen view containing a beautiful gradient background layout */  body {  display: flex;  justify-content: center;  align-items: center;  min-height: 100vh;  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);  font-family: 'Poppins', sans-serif;  overflow: hidden;  position: relative;  }</p>
+
+<p> /* Top-Left Action Control Component Panel */  .menu-container {  position: absolute;  top: 25px;  left: 25px;  z-index: 20;  display: flex;  gap: 12px;  flex-wrap: wrap;  }</p>
+
+<p> /* Top-Right Timer Component Panel */  .timer-container {  position: absolute;  top: 25px;  right: 25px;  z-index: 20;  background: rgba(255, 255, 255, 0.15);  border: 1px solid rgba(255, 255, 255, 0.25);  color: #ffffff;  padding: 10px 18px;  border-radius: 30px;  backdrop-filter: blur(10px);  -webkit-backdrop-filter: blur(10px);  font-weight: 700;  font-size: 0.9rem;  display: flex;  align-items: center;  gap: 8px;  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);  cursor: pointer;  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);  }</p>
+
+<p> /* Minimalist glassmorphism trigger button */  .menu-btn {  background: rgba(255, 255, 255, 0.15);  border: 1px solid rgba(255, 255, 255, 0.25);  color: #ffffff;  padding: 10px 18px;  border-radius: 30px;  cursor: pointer;  backdrop-filter: blur(10px);  -webkit-backdrop-filter: blur(10px);  font-weight: 700;  font-size: 0.9rem;  display: flex;  align-items: center;  gap: 8px;  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);  }</p>
+
+<p> .menu-btn:hover {  background: rgba(255, 255, 255, 0.25);  transform: scale(1.02);  }</p>
+
+<p> /* Interactive split selectors for volume button text vs icon */  .menu-icon-trigger {  padding: 2px 6px;  background: rgba(255, 255, 255, 0.2);  border-radius: 12px;  transition: background 0.2s ease;  }  .menu-icon-trigger:hover {  background: rgba(255, 255, 255, 0.4);  }</p>
+
+<p> /* Popover container box */  .menu-dropdown {  position: absolute;  top: 52px;  left: 0;  background: rgba(0, 0, 0, 0.75);  border: 1px solid rgba(255, 255, 255, 0.2);  backdrop-filter: blur(20px);  -webkit-backdrop-filter: blur(20px);  padding: 20px;  border-radius: 16px;  width: 240px;  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);  display: none;  flex-direction: column;  gap: 16px;  animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;  }</p>
+
+<p> .menu-dropdown.show {  display: flex;  }</p>
+
+<p> @keyframes slideDown {  from { opacity: 0; transform: translateY(-10px); }  to { opacity: 1; transform: translateY(0); }  }</p>
+
+<p> /* Typography splits for separate controls */  .menu-section-title {  color: #ffffff;  font-size: 0.85rem;  text-transform: uppercase;  letter-spacing: 1px;  font-weight: 700;  margin-bottom: 4px;  opacity: 0.9;  border-bottom: 1px solid rgba(255, 255, 255, 0.15);  padding-bottom: 4px;  }</p>
+
+<p> /* Embedded Slider layout elements */  .volume-section {  display: flex;  flex-direction: column;  gap: 6px;  }</p>
+
+<p> .volume-label-container {  display: flex;  justify-content: space-between;  color: rgba(255, 255, 255, 0.8);  font-size: 0.8rem;  }</p>
+
+<p> .menu-volume-slider {  -webkit-appearance: none;  appearance: none;  width: 100%;  height: 6px;  background: rgba(255, 255, 255, 0.2);  border-radius: 3px;  outline: none;  cursor: pointer;  }</p>
+
+<p> .menu-volume-slider::-webkit-slider-thumb {  -webkit-appearance: none;  appearance: none;  width: 14px;  height: 14px;  border-radius: 50%;  background: #ffffff;  box-shadow: 0 2px 6px rgba(0,0,0,0.3);  }</p>
+
+<p> .menu-volume-slider::-moz-range-thumb {  width: 14px;  height: 14px;  border: none;  border-radius: 50%;  background: #ffffff;  box-shadow: 0 2px 6px rgba(0,0,0,0.3);  }</p>
+
+<p> .audio-status {  font-size: 0.75rem;  color: #ffeb3b;  margin-top: 2px;  }</p>
+
+<p> /* Content block with smooth fade-in entry */  .container {  text-align: center;  animation: fadeIn 1.5s ease-out forwards;  position: relative;  z-index: 10;  display: flex;  flex-direction: column;  align-items: center;  }</p>
+
+<p> /* Elegant large typography with a soft floating animation effect */  h1 {  font-size: 8rem;  font-weight: 700;  color: #ffffff;  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);  letter-spacing: -2px;  animation: float 4s ease-in-out infinite;  cursor: pointer;  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);  width: auto;  height: auto;  }</p>
+
+<p> /* Subtitle stylings */  p {  color: rgba(255, 255, 255, 0.9);  font-size: 1.2rem;  margin-top: 10px;  letter-spacing: 1px;  font-weight: 400;  margin-bottom: 25px;  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  }</p>
+
+<p> /* Links container styling */  .links-container {  display: flex;  justify-content: center;  gap: 20px;  margin-top: 20px;  }</p>
+
+<p> /* Styled link buttons */  .dynamic-link {  display: inline-block;  padding: 12px 24px;  background-color: rgba(255, 255, 255, 0.2);  color: #ffffff;  text-decoration: none;  border-radius: 50px;  font-weight: 700;  font-size: 0.9rem;  transition: all 0.3s ease;  backdrop-filter: blur(5px);  border: 1px solid rgba(255, 255, 255, 0.3);  min-width: 150px;  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);  }</p>
+
+<p> .dynamic-link:hover {  background-color: rgba(255, 255, 255, 1);  color: #764ba2;  transform: translateY(-3px);  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);  }</p>
+
+<p> /* --- COMMON INTERACTIVE MODAL STYLES --- */  .game-modal {  position: fixed;  top: 0;  left: 0;  width: 100%;  height: 100%;  background: rgba(0, 0, 0, 0.4);  backdrop-filter: blur(8px);  -webkit-backdrop-filter: blur(8px);  display: none;  justify-content: center;  align-items: center;  z-index: 30;  animation: modalFadeIn 0.25s ease-out;  }</p>
+
+<p> .game-modal.show {  display: flex;  }</p>
+
+<p> .game-card {  background: rgba(255, 255, 255, 0.15);  border: 1px solid rgba(255, 255, 255, 0.25);  backdrop-filter: blur(20px);  -webkit-backdrop-filter: blur(20px);  padding: 24px;  border-radius: 24px;  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);  display: flex;  flex-direction: column;  align-items: center;  gap: 16px;  color: #ffffff;  max-width: 95vw;  }</p>
+
+<p> .game-header {  display: flex;  justify-content: space-between;  align-items: center;  width: 100%;  background: rgba(0, 0, 0, 0.2);  padding: 10px 14px;  border-radius: 14px;  font-weight: 700;  font-size: 1rem;  gap: 8px;  flex-wrap: wrap;  }</p>
+
+<p> .game-control-btn {  background: rgba(255, 255, 255, 0.2);  border: 1px solid rgba(255, 255, 255, 0.3);  color: #ffffff;  padding: 6px 14px;  border-radius: 10px;  cursor: pointer;  font-weight: 700;  font-size: 0.9rem;  transition: all 0.2s ease;  }</p>
+
+<p> .game-control-btn:hover {  background: rgba(255, 255, 255, 0.35);  }</p>
+
+<p> /* --- MINESWEEPER INTERACTIVE PANEL STYLES --- */  .ms-difficulty-select {  background: rgba(0, 0, 0, 0.3);  border: 1px solid rgba(255, 255, 255, 0.2);  color: #ffffff;  padding: 6px 10px;  border-radius: 10px;  cursor: pointer;  font-weight: 700;  font-size: 0.85rem;  outline: none;  font-family: 'Poppins', sans-serif;  }</p>
+
+<p> .ms-difficulty-select option {  background: #2b2b36;  color: #ffffff;  }</p>
+
+<p> .minesweeper-grid {  display: grid;  gap: 4px;  background: rgba(0, 0, 0, 0.15);  padding: 8px;  border-radius: 14px;  justify-content: center;  align-content: center;  }</p>
+
+<p> .ms-cell {  background: rgba(255, 255, 255, 0.25);  border: 1px solid rgba(255, 255, 255, 0.1);  border-radius: 6px;  display: flex;  justify-content: center;  align-items: center;  font-weight: 700;  cursor: pointer;  user-select: none;  transition: all 0.15s ease;  }</p>
+
+<p> .ms-cell:hover {  background: rgba(255, 255, 255, 0.4);  }</p>
+
+<p> .ms-cell.revealed {  background: rgba(0, 0, 0, 0.25);  border: 1px solid rgba(0, 0, 0, 0.1);  cursor: default;  }</p>
+
+<p> .ms-cell.flagged {  background: rgba(255, 193, 7, 0.35);  }</p>
+
+<p> .ms-cell.mine {  background: rgba(244, 67, 54, 0.6);  }</p>
+
+<p> .game-status-label {  font-size: 0.9rem;  font-weight: 700;  color: #ffeb3b;  text-align: center;  min-height: 22px;  }</p>
+
+<p> /* Number Legibility Colors */  .ms-n1 { color: #90caf9; }  .ms-n2 { color: #a5d6a7; }  .ms-n3 { color: #ef9a9a; }  .ms-n4 { color: #b39ddb; }  .ms-n5 { color: #fff59d; }  .ms-n6 { color: #80deea; }  .ms-n7 { color: #ffcc80; }  .ms-n8 { color: #e1bee7; }</p>
+
+<p> /* --- WORDLE PLAYABLE INTERACTIVE STYLES --- */  .wordle-grid {  display: grid;  grid-template-rows: repeat(6, 1fr);  gap: 6px;  background: rgba(0, 0, 0, 0.1);  padding: 10px;  border-radius: 14px;  }</p>
+
+<p> .wordle-row {  display: grid;  grid-template-columns: repeat(5, 45px);  gap: 6px;  }</p>
+
+<p> .wordle-cell {  width: 45px;  height: 45px;  border: 2px solid rgba(255, 255, 255, 0.25);  border-radius: 8px;  display: flex;  justify-content: center;  align-items: center;  font-size: 1.3rem;  font-weight: 700;  text-transform: uppercase;  color: #ffffff;  user-select: none;  transition: all 0.2s ease;  }</p>
+
+<p> /* Wordle tile state evaluation stylings */  .wd-correct {  background-color: #4caf50 !important;  border-color: #4caf50 !important;  }  .wd-present {  background-color: #ffc107 !important;  border-color: #ffc107 !important;  }  .wd-absent {  background-color: rgba(255, 255, 255, 0.1) !important;  border-color: rgba(255, 255, 255, 0.15) !important;  opacity: 0.6;  }</p>
+
+<p> /* Minimalist Keyboard Controller Styles */  .wordle-keyboard {  display: flex;  flex-direction: column;  gap: 6px;  width: 100%;  max-width: 320px;  margin-top: 4px;  }</p>
+
+<p> .keyboard-row {  display: flex;  justify-content: center;  gap: 4px;  }</p>
+
+<p> .kb-key {  background: rgba(255, 255, 255, 0.2);  border: none;  color: #ffffff;  padding: 10px 0;  flex: 1;  border-radius: 6px;  font-size: 0.85rem;  font-weight: 700;  cursor: pointer;  text-transform: uppercase;  user-select: none;  text-align: center;  transition: background 0.15s ease, background-color 0.2s ease;  }</p>
+
+<p> .kb-key:hover {  background: rgba(255, 255, 255, 0.35);  }</p>
+
+<p> .kb-key.wide {  flex: 1.5;  font-size: 0.75rem;  }</p>
+
+<p> /* Keyboard letter state coloring classes */  .kb-key.wd-correct {  background-color: #4caf50 !important;  }  .kb-key.wd-present {  background-color: #ffc107 !important;  }  .kb-key.wd-absent {  background-color: rgba(0, 0, 0, 0.4) !important;  opacity: 0.5;  }</p>
+
+<p> /* --- REUSABLE CIRCLE MODE TRANSFORMATION CLASS --- */  .circle-mode {  width: 50px !important;  height: 50px !important;  min-width: 50px !important;  max-width: 50px !important;  padding: 0 !important;  border-radius: 50% !important;  display: inline-flex !important;  align-items: center !important;  justify-content: center !important;  overflow: hidden !important;  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;  border: 2px solid #ffffff !important;  background: rgba(255, 255, 255, 0.25) !important;  }</p>
+
+<p> /* Customizing H1 when morphed into a circle */  h1.circle-mode {  font-size: 0 !important;  letter-spacing: 0 !important;  text-shadow: none !important;  margin-bottom: 20px;  color: transparent !important;  }</p>
+
+<p> /* Customizing Timer when morphed into a circle */  .timer-container.circle-mode {  font-size: 0 !important;  color: transparent !important;  }  .timer-container.circle-mode * {  display: none !important;  }</p>
+
+<p> /* Customizing Volume Menu Button when morphed into a circle */  .menu-btn.circle-mode {  font-size: 0 !important;  color: transparent !important;  }  .menu-btn.circle-mode * {  display: none !important;  }</p>
+
+<p> /* Entry animation logic */  @keyframes modalFadeIn {  from {   opacity: 0;   transform: translateY(30px);   }  to {   opacity: 1;   transform: translateY(0);   }  }</p>
+
+<p> /* Gentle floating animation logic */  @keyframes float {  0%, 100% {   transform: translateY(0);   }  50% {   transform: translateY(-20px);   }  }</p>
+
+<p> /* --- DYNAMIC RGB FADE MODE STYLING CONTROLS --- */  @keyframes rgbFadeAnimation {  0% { color: #ff3333; fill: #ff3333; stroke: #ff3333; }  17% { color: #ff9933; fill: #ff9933; stroke: #ff9933; }  33% { color: #ffff33; fill: #ffff33; stroke: #ffff33; }  50% { color: #33ff33; fill: #33ff33; stroke: #33ff33; }  67% { color: #3399ff; fill: #3399ff; stroke: #3399ff; }  83% { color: #cc33ff; fill: #cc33ff; stroke: #cc33ff; }  100% { color: #ff3333; fill: #ff3333; stroke: #ff3333; }  }</p>
+
+<p> /* Apply seamless continuous color fades to all key typography layers when triggered */  .gay-mode-on h1,  .gay-mode-on p,  .gay-mode-on a,  .gay-mode-on button,  .gay-mode-on id,  .gay-mode-on label,  .gay-mode-on class,  .gay-mode-on select,  .gay-mode-on select option,  .gay-mode-on div.ms-cell,  .gay-mode-on div.wordle-cell,  .gay-mode-on .wordle-keyboard button,  .gay-mode-on #fidgetSpinner circle,  .gay-mode-on #fidgetSpinner line {  animation: rgbFadeAnimation 7s linear infinite !important;  text-shadow: 0 0 12px rgba(255, 255, 255, 0.15);  }  </style> </head> <body></p>
+
+<p> <!-- Top-Left Action Control Component Panels -->  <div class=&quot;menu-container&quot; id=&quot;menuContainer&quot;>  <!-- Audio Volume controls -->  <button class=&quot;menu-btn&quot; id=&quot;menuBtn&quot; aria-label=&quot;Open Settings Menu&quot;>  <span class=&quot;menu-icon-trigger&quot; id=&quot;menuIcon&quot;>&#40664;&#40664;</span>   <span class=&quot;menu-text-label&quot;>Menu</span>  </button>  <div class=&quot;menu-dropdown&quot; id=&quot;menuDropdown&quot;>  <div class=&quot;menu-section-title&quot;>Volume Control</div>  <div class=&quot;volume-section&quot;>  <div class=&quot;volume-label-container&quot;>  <span>Master Volume</span>  <span id=&quot;volumeVal&quot;>0%</span>  </div>  <input type=&quot;range&quot; id=&quot;menuVolumeSlider&quot; class=&quot;menu-volume-slider&quot; min=&quot;0&quot; max=&quot;100&quot; step=&quot;5&quot; value=&quot;0&quot;>  </div>  <div id=&quot;statusMsg&quot; class=&quot;audio-status&quot;>Move slider to generate the hip-hop beat!</div></p>
+
+<p> <!-- Custom RGB Rainbow Effect Toggler Section -->  <div class=&quot;menu-section-title&quot; style=&quot;margin-top: 8px;&quot;>Themes</div>  <div class=&quot;volume-section&quot;>  <button id=&quot;gayModeToggleBtn&quot; class=&quot;game-control-btn&quot; style=&quot;width: 100%; text-align: center;&quot;>  &#55356;&#57096; Gay Mode: OFF  </button>  </div>  </div></p>
+
+<p> <!-- Minesweeper Popover Activation Button -->  <button class=&quot;menu-btn&quot; id=&quot;minesweeperToggleBtn&quot; aria-label=&quot;Toggle Minesweeper Overlay&quot;>  &#55357;&#56483; Minesweeper  </button></p>
+
+<p> <!-- Minimalist Wordle Popover Activation Button -->  <button class=&quot;menu-btn&quot; id=&quot;wordleToggleBtn&quot; aria-label=&quot;Toggle Wordle Overlay&quot;>  &#55357;&#56541; Wordle  </button></p>
+
+<p> <!-- Interactive Fidget Spinner Popover Activation Button -->  <button class=&quot;menu-btn&quot; id=&quot;spinnerToggleBtn&quot; aria-label=&quot;Toggle Fidget Spinner Overlay&quot;>  &#55356;&#57088; Spinner  </button>  </div></p>
+
+<p> <!-- Top-Right Timer Component Panel -->  <div class=&quot;timer-container&quot; id=&quot;timerContainer&quot;>  &#9201;&#65039; <span id=&quot;timerVal&quot;>0s</span>  </div></p>
+
+<p> <!-- Main Dynamic Layout Container -->  <div class=&quot;container&quot;>  <h1 id=&quot;greetingH1&quot;>Hi!</h1>  <p>Welcome to your minimalist website.</p>    <!-- Interactive dynamic links wrapper -->  <div class=&quot;links-container&quot;>  <a id=&quot;link1&quot; class=&quot;dynamic-link&quot; href=&quot;#&quot; target=&quot;_blank&quot;>Loading...</a>  <a id=&quot;link2&quot; class=&quot;dynamic-link&quot; href=&quot;#&quot; target=&quot;_blank&quot;>Loading...</a>  </div>  </div></p>
+
+<p> <!-- Minesweeper In-Website Popover Interface Box -->  <div class=&quot;game-modal&quot; id=&quot;minesweeperModal&quot;>  <div class=&quot;game-card&quot;>  <div class=&quot;game-header&quot;>  <select id=&quot;msDifficultySelect&quot; class=&quot;ms-difficulty-select&quot; aria-label=&quot;Change game difficulty&quot;>  <option value=&quot;easy&quot; selected>Easy (9x9, 10 Mines)</option>  <option value=&quot;medium&quot;>Medium (12x12, 20 Mines)</option>  <option value=&quot;hard&quot;>Hard (15x15, 40 Mines)</option>  </select>  <span id=&quot;msMinesCount&quot;>&#55357;&#56483; 10</span>  <button id=&quot;msResetBtn&quot; class=&quot;game-control-btn&quot; aria-label=&quot;Reset game&quot;>&#55357;&#56842;</button>  <button id=&quot;msModeBtn&quot; class=&quot;game-control-btn&quot;>&#9935;&#65039; Dig</button>  <button id=&quot;msCloseBtn&quot; class=&quot;game-control-btn&quot; style=&quot;background: rgba(244, 67, 54, 0.25); border-color: rgba(244, 67, 54, 0.4);&quot; aria-label=&quot;Close game&quot;>&#10005;</button>  </div>  <div class=&quot;minesweeper-grid&quot; id=&quot;minesweeperGrid&quot;></div>  <div id=&quot;minesweeperStatus&quot; class=&quot;game-status-label&quot;>Click a cell to start!</div>  </div>  </div></p>
+
+<p> <!-- Playable Infinite Wordle Interactive Popover Container -->  <div class=&quot;game-modal&quot; id=&quot;wordleModal&quot;>  <div class=&quot;game-card&quot;>  <div class=&quot;game-header&quot;>  <span>&#55357;&#56612; Infinite Wordle</span>  <button id=&quot;wdResetBtn&quot; class=&quot;game-control-btn&quot; aria-label=&quot;Next infinite word&quot;>&#55357;&#56580; Next</button>  <button id=&quot;wdCloseBtn&quot; class=&quot;game-control-btn&quot; style=&quot;background: rgba(244, 67, 54, 0.25); border-color: rgba(244, 67, 54, 0.4);&quot; aria-label=&quot;Close game&quot;>&#10005;</button>  </div>    <!-- Game Board Grid 6 Rows x 5 Letters -->  <div class=&quot;wordle-grid&quot; id=&quot;wordleGrid&quot;></div>    <div id=&quot;wordleStatus&quot; class=&quot;game-status-label&quot;>Guess the 5-letter word!</div>    <!-- Accessible Virtual Custom Keyboard -->  <div class=&quot;wordle-keyboard&quot; id=&quot;wordleKeyboard&quot;></div>  </div>  </div></p>
+
+<p> <!-- Playable Digital Fidget Spinner Interactive Popover Container -->  <div class=&quot;game-modal&quot; id=&quot;spinnerModal&quot;>  <div class=&quot;game-card&quot; style=&quot;width: 320px;&quot;>  <div class=&quot;game-header&quot;>  <span>&#55356;&#57088; Fidget Spinner</span>  <button id=&quot;spCloseBtn&quot; class=&quot;game-control-btn&quot; style=&quot;background: rgba(244, 67, 54, 0.25); border-color: rgba(244, 67, 54, 0.4);&quot; aria-label=&quot;Close spinner&quot;>&#10005;</button>  </div>    <!-- Capture workspace container for rotation calculations -->  <div id=&quot;spinnerContainer&quot; style=&quot;position: relative; width: 220px; height: 220px; display: flex; justify-content: center; align-items: center; margin: 15px 0; user-select: none; touch-action: none;&quot;>  <!-- Full Vector CSS/SVG Component Layout -->  <svg id=&quot;fidgetSpinner&quot; viewBox=&quot;0 0 200 200&quot; style=&quot;width: 100%; height: 100%; cursor: grab; transform: rotate(0deg); filter: drop-shadow(0 10px 20px rgba(0,0,0,0.35)); transition: transform 0s;&quot;>  <!-- Outer Bearing Ring Connector Blades -->  <g transform=&quot;rotate(0, 100, 100)&quot;>  <line x1=&quot;100&quot; y1=&quot;100&quot; x2=&quot;100&quot; y2=&quot;45&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;24&quot; stroke-linecap=&quot;round&quot; />  <circle cx=&quot;100&quot; cy=&quot;45&quot; r=&quot;24&quot; fill=&quot;#ffffff&quot; />  <circle cx=&quot;100&quot; cy=&quot;45&quot; r=&quot;12&quot; fill=&quot;#111115&quot; />  </g>  <g transform=&quot;rotate(120, 100, 100)&quot;>  <line x1=&quot;100&quot; y1=&quot;100&quot; x2=&quot;100&quot; y2=&quot;45&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;24&quot; stroke-linecap=&quot;round&quot; />  <circle cx=&quot;100&quot; cy=&quot;45&quot; r=&quot;24&quot; fill=&quot;#ffffff&quot; />  <circle cx=&quot;100&quot; cy=&quot;45&quot; r=&quot;12&quot; fill=&quot;#111115&quot; />  </g>  <g transform=&quot;rotate(240, 100, 100)&quot;>  <line x1=&quot;100&quot; y1=&quot;100&quot; x2=&quot;100&quot; y2=&quot;45&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;24&quot; stroke-linecap=&quot;round&quot; />  <circle cx=&quot;100&quot; cy=&quot;45&quot; r=&quot;24&quot; fill=&quot;#ffffff&quot; />  <circle cx=&quot;100&quot; cy=&quot;45&quot; r=&quot;12&quot; fill=&quot;#111115&quot; />  </g>  <!-- Center Floating Core Cap -->  <circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;28&quot; fill=&quot;#ffffff&quot; style=&quot;opacity: 0.95;&quot; />  <circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;14&quot; fill=&quot;#222228&quot; />  </svg>  </div>    <div id=&quot;spinnerStatus&quot; class=&quot;game-status-label&quot;>RPM: 0 | Click &amp; fling to spin!</div>  </div>  </div></p>
+
+<p> <script>  // Array of predefined pool links conforming to safety requirements  const words = [  &quot;quantum&quot;, &quot;nebula&quot;, &quot;ancient&quot;, &quot;cyber&quot;, &quot;forest&quot;, &quot;pixel&quot;, &quot;paradox&quot;,   &quot;geometry&quot;, &quot;safari&quot;, &quot;echo&quot;, &quot;harmony&quot;, &quot;gravity&quot;, &quot;stratosphere&quot;,   &quot;canvas&quot;, &quot;odyssey&quot;, &quot;vortex&quot;, &quot;alchemy&quot;, &quot;blueprint&quot;, &quot;horizon&quot;, &quot;mirage&quot;,  &quot;glitch&quot;, &quot;spectrum&quot;, &quot;chronicle&quot;, &quot;sonic&quot;, &quot;eclipse&quot;, &quot;infinity&quot;  ];</p>
+
+<p> // Safe, allowed generator prefixes  const engines = [  { name: &quot;Google Discovery&quot;, url: &quot;https://www.google.com/search?q=&quot; },  { name: &quot;YouTube Explore&quot;, url: &quot;https://www.youtube.com/results?search_query=&quot; }  ];</p>
+
+<p> function getRandomPhrase() {  const w1 = words[Math.floor(Math.random() * words.length)];  const w2 = words[Math.floor(Math.random() * words.length)];  return w1 === w2 ? w1 : &#96;${w1}+${w2}&#96;;  }</p>
+
+<p> function generateRandomLink() {  const engine = engines[Math.floor(Math.random() * engines.length)];  const phrase = getRandomPhrase();    return {  text: &#96;${engine.name}: ${phrase.replace('+', ' ')}&#96;,  url: &#96;${engine.url}${phrase}&#96;  };  }</p>
+
+<p> function updateLinks() {  const linkElem1 = document.getElementById(&quot;link1&quot;);  const linkElem2 = document.getElementById(&quot;link2&quot;);</p>
+
+<p> const choice1 = generateRandomLink();  let choice2 = generateRandomLink();</p>
+
+<p> while (choice1.url === choice2.url) {  choice2 = generateRandomLink();  }</p>
+
+<p> linkElem1.href = choice1.url;  linkElem1.textContent = choice1.text;</p>
+
+<p> linkElem2.href = choice2.url;  linkElem2.textContent = choice2.text;  }</p>
+
+<p> // --- INTERACTIVE MORPHING EVENT HANDLERS ---  const greetingH1 = document.getElementById(&quot;greetingH1&quot;);  greetingH1.addEventListener(&quot;click&quot;, () => {  greetingH1.classList.toggle(&quot;circle-mode&quot;);  });</p>
+
+<p> const timerContainer = document.getElementById(&quot;timerContainer&quot;);  timerContainer.addEventListener(&quot;click&quot;, () => {  timerContainer.classList.toggle(&quot;circle-mode&quot;);  });</p>
+
+<p> const menuBtn = document.getElementById(&quot;menuBtn&quot;);  const menuIcon = document.getElementById(&quot;menuIcon&quot;);  const menuDropdown = document.getElementById(&quot;menuDropdown&quot;);</p>
+
+<p> menuBtn.addEventListener(&quot;click&quot;, (e) => {  e.stopPropagation();  if (menuBtn.classList.contains(&quot;circle-mode&quot;)) {  menuBtn.classList.remove(&quot;circle-mode&quot;);  } else {  if (e.target === menuIcon) {  menuBtn.classList.add(&quot;circle-mode&quot;);  menuDropdown.classList.remove(&quot;show&quot;);  } else {  menuDropdown.classList.toggle(&quot;show&quot;);  }  }  });</p>
+
+<p> document.addEventListener(&quot;click&quot;, (e) => {  const container = document.getElementById(&quot;menuContainer&quot;);  if (!container.contains(e.target)) {  menuDropdown.classList.remove(&quot;show&quot;);  }  });</p>
+
+<p> // --- GAY MODE THEME SWITCHER CONTROLLER ---  const gayModeToggleBtn = document.getElementById(&quot;gayModeToggleBtn&quot;);  let isGayModeActive = false;</p>
+
+<p> gayModeToggleBtn.addEventListener(&quot;click&quot;, () => {  isGayModeActive = !isGayModeActive;  if (isGayModeActive) {  document.body.classList.add(&quot;gay-mode-on&quot;);  gayModeToggleBtn.textContent = &quot;&#55356;&#57096; Gay Mode: ON&quot;;  gayModeToggleBtn.style.background = &quot;rgba(255, 255, 255, 0.4)&quot;;  } else {  document.body.classList.remove(&quot;gay-mode-on&quot;);  gayModeToggleBtn.textContent = &quot;&#55356;&#57096; Gay Mode: OFF&quot;;  gayModeToggleBtn.style.background = &quot;rgba(255, 255, 255, 0.2)&quot;;  }  });</p>
+
+<p> // --- CORE MINESWEEPER LOGIC ENGINE ---  let msRows = 9;  let msCols = 9;  let msMines = 10;  let msBoard = [];  let msFirstClick = true;  let msGameOver = false;  let msDigMode = true;</p>
+
+<p> function initMinesweeper() {  msBoard = [];  msFirstClick = true;  msGameOver = false;  document.getElementById(&quot;msResetBtn&quot;).textContent = &quot;&#55357;&#56842;&quot;;  document.getElementById(&quot;minesweeperStatus&quot;).textContent = &quot;Click a cell to start!&quot;;  document.getElementById(&quot;msMinesCount&quot;).textContent = &#96;&#55357;&#56483; ${msMines}&#96;;    let cellSize = 34;  if (msCols === 12) cellSize = 28;  if (msCols === 15) cellSize = 23;</p>
+
+<p> const gridEl = document.getElementById(&quot;minesweeperGrid&quot;);  gridEl.innerHTML = &quot;&quot;;  gridEl.style.gridTemplateColumns = &#96;repeat(${msCols}, ${cellSize}px)&#96;;  gridEl.style.gridTemplateRows = &#96;repeat(${msRows}, ${cellSize}px)&#96;;    for (let r = 0; r < msRows; r++) {  msBoard[r] = [];  for (let c = 0; c < msCols; c++) {  msBoard[r][c] = {  row: r, col: c, isMine: false, isRevealed: false, isFlagged: false, count: 0  };    const cellEl = document.createElement(&quot;div&quot;);  cellEl.classList.add(&quot;ms-cell&quot;);  cellEl.style.width = &#96;${cellSize}px&#96;;  cellEl.style.height = &#96;${cellSize}px&#96;;  cellEl.style.fontSize = &#96;${cellSize * 0.45}px&#96;;  cellEl.dataset.row = r;  cellEl.dataset.col = c;    cellEl.addEventListener(&quot;click&quot;, () => handleCellClick(r, c));  cellEl.addEventListener(&quot;contextmenu&quot;, (e) => {  e.preventDefault();  handleCellRightClick(r, c);  });    gridEl.appendChild(cellEl);  }  }  }</p>
+
+<p> function placeMines(startRow, startCol) {  let minesPlaced = 0;  while (minesPlaced < msMines) {  let r = Math.floor(Math.random() * msRows);  let c = Math.floor(Math.random() * msCols);  if (r === startRow &amp;&amp; c === startCol) continue;  if (msBoard[r][c].isMine) continue;    msBoard[r][c].isMine = true;  minesPlaced++;  }    for (let r = 0; r < msRows; r++) {  for (let c = 0; c < msCols; c++) {  if (msBoard[r][c].isMine) continue;  let count = 0;  for (let dr = -1; dr <= 1; dr++) {  for (let dc = -1; dc <= 1; dc++) {  let nr = r + dr;  let nc = c + dc;  if (nr >= 0 &amp;&amp; nr < msRows &amp;&amp; nc >= 0 &amp;&amp; nc < msCols) {  if (msBoard[nr][nc].isMine) count++;  }  }  }  msBoard[r][c].count = count;  }  }  }</p>
+
+<p> function handleCellClick(r, c) {  if (msGameOver) return;  if (!msDigMode) {  handleCellRightClick(r, c);  return;  }  let cell = msBoard[r][c];  if (cell.isRevealed || cell.isFlagged) return;  if (msFirstClick) {  msFirstClick = false;  placeMines(r, c);  }  revealCell(r, c);  checkGameStatus();  }</p>
+
+<p> function handleCellRightClick(r, c) {  if (msGameOver) return;  let cell = msBoard[r][c];  if (cell.isRevealed) return;    cell.isFlagged = !cell.isFlagged;  const cellEl = document.querySelector(&#96;.ms-cell[data-row='${r}'][data-col='${c}']&#96;);    if (cell.isFlagged) {  cellEl.classList.add(&quot;flagged&quot;);  cellEl.textContent = &quot;&#55357;&#57001;&quot;;  } else {  cellEl.classList.remove(&quot;flagged&quot;);  cellEl.textContent = &quot;&quot;;  }    let countFlags = 0;  for (let i = 0; i < msRows; i++) {  for (let j = 0; j < msCols; j++) {  if (msBoard[i][j].isFlagged) countFlags++;  }  }  document.getElementById(&quot;msMinesCount&quot;).textContent = &#96;&#55357;&#56483; ${Math.max(0, msMines - countFlags)}&#96;;  }</p>
+
+<p> function revealCell(r, c) {  let cell = msBoard[r][c];  if (cell.isRevealed || cell.isFlagged) return;    cell.isRevealed = true;  const cellEl = document.querySelector(&#96;.ms-cell[data-row='${r}'][data-col='${c}']&#96;);  cellEl.classList.add(&quot;revealed&quot;);    if (cell.isMine) {  cellEl.classList.add(&quot;mine&quot;);  cellEl.textContent = &quot;&#55357;&#56483;&quot;;  triggerGameOver(false);  return;  }    if (cell.count > 0) {  cellEl.textContent = cell.count;  cellEl.classList.add(&#96;ms-n${cell.count}&#96;);  } else {  cellEl.textContent = &quot;&quot;;  for (let dr = -1; dr <= 1; dr++) {  for (let dc = -1; dc <= 1; dc++) {  let nr = r + dr;  let nc = c + dc;  if (nr >= 0 &amp;&amp; nr < msRows &amp;&amp; nc >= 0 &amp;&amp; nc < msCols) {  revealCell(nr, nc);  }  }  }  }  }</p>
+
+<p> function triggerGameOver(isWin) {  msGameOver = true;  if (isWin) {  document.getElementById(&quot;msResetBtn&quot;).textContent = &quot;&#55357;&#56846;&quot;;  document.getElementById(&quot;minesweeperStatus&quot;).textContent = &quot;&#55356;&#57225; You Win! Brilliant job!&quot;;  } else {  document.getElementById(&quot;msResetBtn&quot;).textContent = &quot;&#55357;&#56485;&quot;;  document.getElementById(&quot;minesweeperStatus&quot;).textContent = &quot;&#55357;&#56485; Game Over! Try again.&quot;;  for (let r = 0; r < msRows; r++) {  for (let c = 0; c < msCols; c++) {  let cell = msBoard[r][c];  if (cell.isMine) {  const cellEl = document.querySelector(&#96;.ms-cell[data-row='${r}'][data-col='${c}']&#96;);  if (cellEl) {  cellEl.classList.add(&quot;revealed&quot;, &quot;mine&quot;);  cellEl.textContent = &quot;&#55357;&#56483;&quot;;  }  }  }  }  }  }</p>
+
+<p> function checkGameStatus() {  if (msGameOver) return;  let unrevealedSafeCells = 0;  for (let r = 0; r < msRows; r++) {  for (let c = 0; c < msCols; c++) {  if (!msBoard[r][c].isMine &amp;&amp; !msBoard[r][c].isRevealed) {  unrevealedSafeCells++;  }  }  }  if (unrevealedSafeCells === 0) {  triggerGameOver(true);  }  }</p>
+
+<p> const msToggleBtn = document.getElementById(&quot;minesweeperToggleBtn&quot;);  const msModal = document.getElementById(&quot;minesweeperModal&quot;);  const msDifficultySelect = document.getElementById(&quot;msDifficultySelect&quot;);</p>
+
+<p> function updateDifficultySettings() {  const level = msDifficultySelect.value;  if (level === &quot;easy&quot;) {  msRows = 9; msCols = 9; msMines = 10;  } else if (level === &quot;medium&quot;) {  msRows = 12; msCols = 12; msMines = 20;  } else if (level === &quot;hard&quot;) {  msRows = 15; msCols = 15; msMines = 40;  }  initMinesweeper();  }</p>
+
+<p> msDifficultySelect.addEventListener(&quot;change&quot;, updateDifficultySettings);</p>
+
+<p> msToggleBtn.addEventListener(&quot;click&quot;, () => {  if (msModal.classList.contains(&quot;show&quot;)) {  msModal.classList.remove(&quot;show&quot;);  } else {  wordleModal.classList.remove(&quot;show&quot;);   spinnerModal.classList.remove(&quot;show&quot;);  msModal.classList.add(&quot;show&quot;);  msToggleBtn.blur();   updateDifficultySettings();  }  });</p>
+
+<p> // Dedicated click-outside closing event listener for Minesweeper overlay layer  msModal.addEventListener(&quot;click&quot;, (e) => {  if (e.target === msModal) {  msModal.classList.remove(&quot;show&quot;);  }  });</p>
+
+<p> // Dedicated explicit Close button connector for Minesweeper header  document.getElementById(&quot;msCloseBtn&quot;).addEventListener(&quot;click&quot;, () => {  msModal.classList.remove(&quot;show&quot;);  });</p>
+
+<p> const msModeBtn = document.getElementById(&quot;msModeBtn&quot;);  msModeBtn.addEventListener(&quot;click&quot;, () => {  msDigMode = !msDigMode;  msModeBtn.textContent = msDigMode ? &quot;&#9935;&#65039; Dig&quot; : &quot;&#55357;&#57001; Flag&quot;;  msModeBtn.style.background = msDigMode ? &quot;rgba(255, 255, 255, 0.2)&quot; : &quot;rgba(255, 193, 7, 0.4)&quot;;  });</p>
+
+<p> document.getElementById(&quot;msResetBtn&quot;).addEventListener(&quot;click&quot;, () => {  initMinesweeper();  });</p>
+
+<p>  // --- IN-WEBSITE PLAYABLE INFINITE WORDLE ENGINE ---  const targetWordPool = [  &quot;APPLE&quot;, &quot;BEACH&quot;, &quot;CHAIR&quot;, &quot;DANCE&quot;, &quot;EARTH&quot;, &quot;FLAME&quot;, &quot;GLASS&quot;, &quot;HOUSE&quot;,   &quot;LIGHT&quot;, &quot;MUSIC&quot;, &quot;NIGHT&quot;, &quot;OCEAN&quot;, &quot;PIANO&quot;, &quot;QUEEN&quot;, &quot;RIVER&quot;, &quot;SMILE&quot;,   &quot;TRAIN&quot;, &quot;UNDER&quot;, &quot;VOICE&quot;, &quot;WATER&quot;, &quot;YOUTH&quot;, &quot;PLANT&quot;, &quot;SPACE&quot;, &quot;DREAM&quot;,   &quot;CLOUD&quot;, &quot;STORM&quot;, &quot;SMART&quot;, &quot;LEAFY&quot;, &quot;GREEN&quot;, &quot;SWEET&quot;, &quot;FLUID&quot;  ];</p>
+
+<p> const explicitDictionary = [  &quot;ABOUT&quot;, &quot;ABOVE&quot;, &quot;ADMIT&quot;, &quot;ADULT&quot;, &quot;AGENT&quot;, &quot;AGREE&quot;, &quot;AHEAD&quot;, &quot;ALARM&quot;, &quot;ALIVE&quot;, &quot;ALLOW&quot;,   &quot;ALONE&quot;, &quot;ALONG&quot;, &quot;ALTER&quot;, &quot;AMONG&quot;, &quot;ANGER&quot;, &quot;ANGLE&quot;, &quot;ANGRY&quot;, &quot;APART&quot;, &quot;APPLE&quot;, &quot;APPLY&quot;,   &quot;ARENA&quot;, &quot;ARGUE&quot;, &quot;ARISE&quot;, &quot;ARROW&quot;, &quot;ASSET&quot;, &quot;AUDIO&quot;, &quot;AWAKE&quot;, &quot;BADGE&quot;, &quot;BAKER&quot;, &quot;BASIC&quot;,   &quot;BASIS&quot;, &quot;BEACH&quot;, &quot;BEARD&quot;, &quot;BEAST&quot;, &quot;BEGIN&quot;, &quot;BEING&quot;, &quot;BELOW&quot;, &quot;BENCH&quot;, &quot;BLACK&quot;, &quot;BLAME&quot;,   &quot;BLIND&quot;, &quot;BLOCK&quot;, &quot;BLOOD&quot;, &quot;BOARD&quot;, &quot;BOOST&quot;, &quot;BUYER&quot;, &quot;CABLE&quot;, &quot;CALM&quot;, &quot;CANDY&quot;, &quot;CARGO&quot;,   &quot;CATCH&quot;, &quot;CAUSE&quot;, &quot;CHAIN&quot;, &quot;CHAIR&quot;, &quot;CHAMP&quot;, &quot;CHART&quot;, &quot;CHASE&quot;, &quot;CHEAP&quot;, &quot;CHECK&quot;, &quot;CHEST&quot;,   &quot;CHIEF&quot;, &quot;CHILD&quot;, &quot;CHINA&quot;, &quot;CHOIR&quot;, &quot;CHOOSE&quot;, &quot;CLAIM&quot;, &quot;CLASS&quot;, &quot;CLEAN&quot;, &quot;CLEAR&quot;, &quot;CLIMB&quot;,   &quot;CLOCK&quot;, &quot;CLOSE&quot;, &quot;CLOTH&quot;, &quot;CLOUD&quot;, &quot;COACH&quot;, &quot;COAST&quot;, &quot;COUNT&quot;, &quot;COURT&quot;, &quot;COVER&quot;, &quot;CRAFT&quot;,   &quot;CRASH&quot;, &quot;CREAM&quot;, &quot;CRIME&quot;, &quot;CROSS&quot;, &quot;CROWD&quot;, &quot;CROWN&quot;, &quot;CRUDE&quot;, &quot;CRUSH&quot;, &quot;CYCLE&quot;, &quot;DAILY&quot;,   &quot;DANCE&quot;, &quot;DEATH&quot;, &quot;DEBUT&quot;, &quot;DELAY&quot;, &quot;DEPTH&quot;, &quot;DIRTY&quot;, &quot;DOZEN&quot;, &quot;DRAFT&quot;, &quot;DRAMA&quot;, &quot;DREAM&quot;,   &quot;DRESS&quot;, &quot;DRIFT&quot;, &quot;DRINK&quot;, &quot;DRIVE&quot;, &quot;EARLY&quot;, &quot;EARTH&quot;, &quot;EIGHT&quot;, &quot;ELITE&quot;, &quot;EMPTY&quot;, &quot;ENEMY&quot;,   &quot;ENJOY&quot;, &quot;ENTER&quot;, &quot;ENTRY&quot;, &quot;EQUAL&quot;, &quot;EVENT&quot;, &quot;EVERY&quot;, &quot;EXACT&quot;, &quot;EXIST&quot;, &quot;EXTRA&quot;, &quot;FAITH&quot;,   &quot;FALSE&quot;, &quot;FATAL&quot;, &quot;FAULT&quot;, &quot;FIBER&quot;, &quot;FIELD&quot;, &quot;FIFTH&quot;, &quot;FIFTY&quot;, &quot;FIGHT&quot;, &quot;FINAL&quot;, &quot;FIRST&quot;,   &quot;FIXED&quot;, &quot;FLAME&quot;, &quot;FLASH&quot;, &quot;FLEET&quot;, &quot;FLUID&quot;, &quot;FOCUS&quot;, &quot;FORCE&quot;, &quot;FRAME&quot;, &quot;FRANK&quot;, &quot;FRAUD&quot;,   &quot;FRESH&quot;, &quot;FRONT&quot;, &quot;FRUIT&quot;, &quot;FULLY&quot;, &quot;FUNNY&quot;, &quot;GIANT&quot;, &quot;GIVEN&quot;, &quot;GLASS&quot;, &quot;GLOBE&quot;, &quot;GLOVE&quot;,   &quot;GRACE&quot;, &quot;GRADE&quot;, &quot;GRAND&quot;, &quot;GRANT&quot;, &quot;GRASS&quot;, &quot;GRAVE&quot;, &quot;GREAT&quot;, &quot;GREEN&quot;, &quot;GRIEF&quot;, &quot;GROSS&quot;,   &quot;GROUP&quot;, &quot;GROWN&quot;, &quot;GUARD&quot;, &quot;GUEST&quot;, &quot;GUIDE&quot;, &quot;HABIT&quot;, &quot;HAPPY&quot;, &quot;HARSH&quot;, &quot;HEART&quot;, &quot;HEAVY&quot;,   &quot;HELLO&quot;, &quot;IDEAL&quot;, &quot;IMAGE&quot;, &quot;INDEX&quot;, &quot;INNER&quot;, &quot;INPUT&quot;, &quot;ISSUE&quot;, &quot;ITEMS&quot;, &quot;IVORY&quot;, &quot;JACKET&quot;,   &quot;JOINT&quot;, &quot;JUDGE&quot;, &quot;JUICE&quot;, &quot;KNIFE&quot;, &quot;KNOCK&quot;, &quot;KNOWN&quot;, &quot;LABEL&quot;, &quot;LABOR&quot;, &quot;LARGE&quot;, &quot;LASER&quot;,   &quot;LATER&quot;, &quot;LAUGH&quot;, &quot;LAYER&quot;, &quot;LEAFY&quot;, &quot;LEARN&quot;, &quot;LEASE&quot;, &quot;LEAST&quot;, &quot;LEAVE&quot;, &quot;LEGAL&quot;, &quot;LEMON&quot;,   &quot;LEVEL&quot;, &quot;LIGHT&quot;, &quot;LIMIT&quot;, &quot;LINKS&quot;, &quot;LOCAL&quot;, &quot;LOGIC&quot;, &quot;LOOSE&quot;, &quot;LOVER&quot;, &quot;LOWER&quot;, &quot;LUCKY&quot;,   &quot;LUNCH&quot;, &quot;LYRIC&quot;, &quot;MACRO&quot;, &quot;MAGIC&quot;, &quot;MAJOR&quot;, &quot;MAKER&quot;, &quot;MARCH&quot;, &quot;MATCH&quot;, &quot;MAYOR&quot;, &quot;MEDAL&quot;,   &quot;MEDIA&quot;, &quot;MERCY&quot;, &quot;MERIT&quot;, &quot;METAL&quot;, &quot;MICRO&quot;, &quot;MIDST&quot;, &quot;MINER&quot;, &quot;MINOR&quot;, &quot;MINUS&quot;, &quot;MIXED&quot;,   &quot;MODEL&quot;, &quot;MONEY&quot;, &quot;MONTH&quot;, &quot;MORAL&quot;, &quot;MOTOR&quot;, &quot;MOUNT&quot;, &quot;MOUSE&quot;, &quot;MOUTH&quot;, &quot;MOVED&quot;, &quot;MOVIE&quot;,   &quot;MUSIC&quot;, &quot;NAKED&quot;, &quot;NASTY&quot;, &quot;NAVAL&quot;, &quot;NEEDS&quot;, &quot;NERVE&quot;, &quot;NEVER&quot;, &quot;NEWER&quot;, &quot;NICER&quot;, &quot;NIGHT&quot;,   &quot;NINTH&quot;, &quot;NOBLE&quot;, &quot;NOISE&quot;, &quot;NORTH&quot;, &quot;NOTES&quot;, &quot;NOVEL&quot;, &quot;NURSE&quot;, &quot;NYLON&quot;, &quot;OCCUR&quot;, &quot;OCEAN&quot;,   &quot;OFFER&quot;, &quot;OFTEN&quot;, &quot;OLDER&quot;, &quot;OLIVE&quot;, &quot;ONION&quot;, &quot;ONSET&quot;, &quot;OPERA&quot;, &quot;OPTIC&quot;, &quot;ORBIT&quot;, &quot;ORDER&quot;,   &quot;OTHER&quot;, &quot;OUGHT&quot;, &quot;OUTER&quot;, &quot;OWNER&quot;, &quot;OXIDE&quot;, &quot;PAINT&quot;, &quot;PANEL&quot;, &quot;PANIC&quot;, &quot;PAPER&quot;, &quot;PARTS&quot;,   &quot;PARTY&quot;, &quot;PATCH&quot;, &quot;PATHS&quot;, &quot;PATIO&quot;, &quot;PAUSE&quot;, &quot;PEACE&quot;, &quot;PEARL&quot;, &quot;PEDAL&quot;, &quot;PENNY&quot;, &quot;PHASE&quot;,   &quot;PHONE&quot;, &quot;PHOTO&quot;, &quot;PIANO&quot;, &quot;PIECE&quot;, &quot;PILOT&quot;, &quot;PINCH&quot;, &quot;PIXEL&quot;, &quot;PIZZA&quot;, &quot;PLACE&quot;, &quot;PLAIN&quot;,   &quot;PLANE&quot;, &quot;PLANK&quot;, &quot;PLANT&quot;, &quot;PLATE&quot;, &quot;PLAZA&quot;, &quot;PLEAD&quot;, &quot;POINT&quot;, &quot;POKER&quot;, &quot;POLAR&quot;, &quot;POUND&quot;,   &quot;POWER&quot;, &quot;PRANK&quot;, &quot;PRESS&quot;, &quot;PRICE&quot;, &quot;PRIDE&quot;, &quot;PRIME&quot;, &quot;PRINT&quot;, &quot;PRIOR&quot;, &quot;PRIZE&quot;, &quot;PROBE&quot;,   &quot;PROOF&quot;, &quot;PROSE&quot;, &quot;PROUD&quot;, &quot;PROVE&quot;, &quot;PROXY&quot;, &quot;PULSE&quot;, &quot;PUMPS&quot;, &quot;PUNCH&quot;, &quot;PUPIL&quot;, &quot;PUPPY&quot;,   &quot;PURGE&quot;, &quot;PURSE&quot;, &quot;QUACK&quot;, &quot;QUAKE&quot;, &quot;QUEEN&quot;, &quot;QUEER&quot;, &quot;QUERY&quot;, &quot;QUEST&quot;, &quot;QUEUE&quot;, &quot;QUICK&quot;,   &quot;QUIET&quot;, &quot;QUILT&quot;, &quot;QUIRK&quot;, &quot;QUITE&quot;, &quot;QUOTA&quot;, &quot;QUOTE&quot;, &quot;RADAR&quot;, &quot;RADIO&quot;, &quot;RAISE&quot;, &quot;RALLY&quot;,   &quot;RAMEN&quot;, &quot;RANGE&quot;, &quot;RAPID&quot;, &quot;RATIO&quot;, &quot;RAZOR&quot;, &quot;REACH&quot;, &quot;REACT&quot;, &quot;READY&quot;, &quot;REALM&quot;, &quot;REBEL&quot;,   &quot;REFER&quot;, &quot;RELAX&quot;, &quot;RELIC&quot;, &quot;REMIT&quot;, &quot;REMIX&quot;, &quot;RENAL&quot;, &quot;RENEW&quot;, &quot;REPAY&quot;, &quot;REPLY&quot;, &quot;RESET&quot;,   &quot;RESIN&quot;, &quot;RESTS&quot;, &quot;RETRO&quot;, &quot;RETRY&quot;, &quot;REUSE&quot;, &quot;RIVER&quot;, &quot;RIVET&quot;, &quot;ROBOT&quot;, &quot;ROCKS&quot;, &quot;ROCKY&quot;,   &quot;RODEO&quot;, &quot;ROGUE&quot;, &quot;ROLES&quot;, &quot;ROLLS&quot;, &quot;ROMAN&quot;, &quot;ROOFY&quot;, &quot;ROOMS&quot;, &quot;ROOST&quot;, &quot;ROOTS&quot;, &quot;ROTOR&quot;,   &quot;ROUGE&quot;, &quot;ROUGH&quot;, &quot;ROUND&quot;, &quot;ROUSE&quot;, &quot;ROUTE&quot;, &quot;ROVER&quot;, &quot;ROWDY&quot;, &quot;ROYAL&quot;, &quot;RUGBY&quot;, &quot;RUINS&quot;,   &quot;RULER&quot;, &quot;RULES&quot;, &quot;RUMOR&quot;, &quot;RURAL&quot;, &quot;SABLE&quot;, &quot;SACKS&quot;, &quot;SAFARI&quot;, &quot;SAFER&quot;, &quot;SAFETY&quot;, &quot;SAINT&quot;,   &quot;SALAD&quot;, &quot;SALON&quot;, &quot;SALSA&quot;, &quot;SALTS&quot;, &quot;SALTY&quot;, &quot;SALVE&quot;, &quot;SALVO&quot;, &quot;SAMBA&quot;, &quot;SANDS&quot;, &quot;SANDY&quot;,   &quot;SATIN&quot;, &quot;SAUCE&quot;, &quot;SAUCY&quot;, &quot;SAUNA&quot;, &quot;SAVER&quot;, &quot;SAVOR&quot;, &quot;SCALE&quot;, &quot;SCALP&quot;, &quot;SCANT&quot;, &quot;SCARF&quot;,   &quot;SCENE&quot;, &quot;SCENT&quot;, &quot;SCOPE&quot;, &quot;SCORE&quot;, &quot;SCORN&quot;, &quot;SCOUT&quot;, &quot;SCOWL&quot;, &quot;SCRAP&quot;, &quot;SCREW&quot;, &quot;SCRUB&quot;,   &quot;SCUBA&quot;, &quot;SEALS&quot;, &quot;SEATS&quot;, &quot;SHACK&quot;, &quot;SHADE&quot;, &quot;SHADY&quot;, &quot;SHAFT&quot;, &quot;SHAKE&quot;, &quot;SHAKY&quot;, &quot;SHALE&quot;,   &quot;SHALL&quot;, &quot;SHAME&quot;, &quot;SHANK&quot;, &quot;SHAPE&quot;, &quot;SHARE&quot;, &quot;SHARK&quot;, &quot;SHARP&quot;, &quot;SHAWL&quot;, &quot;SHEAR&quot;, &quot;SHEEP&quot;,   &quot;SHEER&quot;, &quot;SHEET&quot;, &quot;SHELF&quot;, &quot;SHELL&quot;, &quot;SHIFT&quot;, &quot;SHINE&quot;, &quot;SHINY&quot;, &quot;SHIRT&quot;, &quot;SHOCK&quot;, &quot;SHOES&quot;,   &quot;SHOOT&quot;, &quot;SHOPS&quot;, &quot;SHORE&quot;, &quot;SHORT&quot;, &quot;SHOUT&quot;, &quot;SHOVE&quot;, &quot;SHOWN&quot;, &quot;SHOWS&quot;, &quot;SHOWY&quot;, &quot;SHRED&quot;,   &quot;SHREW&quot;, &quot;SHRUB&quot;, &quot;SHRUG&quot;, &quot;SHUNT&quot;, &quot;SIGHT&quot;, &quot;SIGMA&quot;, &quot;SIGNS&quot;, &quot;SILKEN&quot;, &quot;SILKS&quot;, &quot;SILKY&quot;,   &quot;SILLY&quot;, &quot;SILVER&quot;, &quot;SIMPLE&quot;, &quot;SIMPLY&quot;, &quot;SINCE&quot;, &quot;SINEW&quot;, &quot;SINGS&quot;, &quot;SINKS&quot;, &quot;SINUS&quot;, &quot;SIREN&quot;,   &quot;SIXTH&quot;, &quot;SIXTY&quot;, &quot;SIZES&quot;, &quot;SKATE&quot;, &quot;SKETCH&quot;, &quot;SKEW&quot;, &quot;SKIFF&quot;, &quot;SKILL&quot;, &quot;SKIMP&quot;, &quot;SKINS&quot;,   &quot;SKIRT&quot;, &quot;SKULL&quot;, &quot;SKUNK&quot;, &quot;SLACK&quot;, &quot;SLAIN&quot;, &quot;SLANG&quot;, &quot;SLANT&quot;, &quot;SLASH&quot;, &quot;SLATE&quot;, &quot;SLAVE&quot;,   &quot;SLEEK&quot;, &quot;SLEEP&quot;, &quot;SLEET&quot;, &quot;SLEEVE&quot;, &quot;SLEPT&quot;, &quot;SLICE&quot;, &quot;SLICK&quot;, &quot;SLIDE&quot;, &quot;SLIME&quot;, &quot;SLIMS&quot;,   &quot;SLIMY&quot;, &quot;SLING&quot;, &quot;SLINK&quot;, &quot;SLIPS&quot;, &quot;SLOPE&quot;, &quot;SLOTS&quot;, &quot;SMACK&quot;, &quot;SMALL&quot;, &quot;SMART&quot;, &quot;SMASH&quot;,   &quot;SMEAR&quot;, &quot;SMELL&quot;, &quot;SMELT&quot;, &quot;SMILE&quot;, &quot;SMIRK&quot;, &quot;SMITE&quot;, &quot;SMITH&quot;, &quot;SMOCK&quot;, &quot;SMOKE&quot;, &quot;SMOKY&quot;,   &quot;SMOOTH&quot;, &quot;SMOTE&quot;, &quot;SNACK&quot;, &quot;SNAIL&quot;, &quot;SNAKE&quot;, &quot;SNARE&quot;, &quot;SNARL&quot;, &quot;SNEAK&quot;, &quot;SNEER&quot;, &quot;SNIDE&quot;,   &quot;SNIFF&quot;, &quot;SNORE&quot;, &quot;SNORT&quot;, &quot;SNOUT&quot;, &quot;SNOWY&quot;, &quot;SNUFF&quot;, &quot;SOBER&quot;, &quot;SOCKS&quot;, &quot;SODA&quot;, &quot;SOFAS&quot;,   &quot;SONAR&quot;, &quot;SONGS&quot;, &quot;SONIC&quot;, &quot;SOUND&quot;, &quot;SOUTH&quot;, &quot;SPACE&quot;, &quot;SPADE&quot;, &quot;SPAIN&quot;, &quot;SPANK&quot;, &quot;SPARE&quot;,   &quot;SPARK&quot;, &quot;SPASM&quot;, &quot;SPAWN&quot;, &quot;SPEAK&quot;, &quot;SPEAR&quot;, &quot;SPECK&quot;, &quot;SPEED&quot;, &quot;SPELL&quot;, &quot;SPEND&quot;, &quot;SPENT&quot;,   &quot;SPERM&quot;, &quot;SPICE&quot;, &quot;SPICY&quot;, &quot;SPIES&quot;, &quot;SPIKE&quot;, &quot;SPIKY&quot;, &quot;SPILL&quot;, &quot;SPINE&quot;, &quot;SPINY&quot;, &quot;SPIRE&quot;,   &quot;SPLIT&quot;, &quot;SPOIL&quot;, &quot;SPOKE&quot;, &quot;SPOOF&quot;, &quot;SPOOK&quot;, &quot;SPOOL&quot;, &quot;SPOON&quot;, &quot;SPORE&quot;, &quot;SPORT&quot;, &quot;SPOTS&quot;,   &quot;SPOUT&quot;, &quot;SPRAY&quot;, &quot;SPREE&quot;, &quot;SPRIG&quot;, &quot;SPRUCE&quot;, &quot;SPUNK&quot;, &quot;SPURS&quot;, &quot;SPURT&quot;, &quot;SQUAD&quot;, &quot;SQUAT&quot;,   &quot;SQUID&quot;, &quot;SQUIRE&quot;, &quot;STAFF&quot;, &quot;STAGE&quot;, &quot;STAGS&quot;, &quot;STAID&quot;, &quot;STAIN&quot;, &quot;STAIR&quot;, &quot;STAKE&quot;, &quot;STALE&quot;,   &quot;STALK&quot;, &quot;STALL&quot;, &quot;STAMP&quot;, &quot;STAND&quot;, &quot;STARE&quot;, &quot;STARK&quot;, &quot;STARS&quot;, &quot;START&quot;, &quot;STASH&quot;, &quot;STATE&quot;,   &quot;STATS&quot;, &quot;STAVE&quot;, &quot;STAYS&quot;, &quot;STEAD&quot;, &quot;STEAK&quot;, &quot;STEAL&quot;, &quot;STEAM&quot;, &quot;STEED&quot;, &quot;STEEL&quot;, &quot;STEEP&quot;,   &quot;STEER&quot;, &quot;STEMS&quot;, &quot;STEPS&quot;, &quot;STERN&quot;, &quot;STEWS&quot;, &quot;STICK&quot;, &quot;STIFF&quot;, &quot;STILE&quot;, &quot;STILL&quot;, &quot;STILT&quot;,   &quot;STING&quot;, &quot;STINK&quot;, &quot;STINT&quot;, &quot;STOCK&quot;, &quot;STOIC&quot;, &quot;STOKE&quot;, &quot;STOLE&quot;, &quot;STONE&quot;, &quot;STONY&quot;, &quot;STOOD&quot;,   &quot;STOOL&quot;, &quot;STOOP&quot;, &quot;STORE&quot;, &quot;STORK&quot;, &quot;STORM&quot;, &quot;STORY&quot;, &quot;STOUT&quot;, &quot;STOVE&quot;, &quot;STRAW&quot;, &quot;STRAY&quot;,   &quot;STRIP&quot;, &quot;STRUT&quot;, &quot;STUCK&quot;, &quot;STUDS&quot;, &quot;STUDY&quot;, &quot;STUFF&quot;, &quot;STUMP&quot;, &quot;STUNG&quot;, &quot;STUNT&quot;, &quot;STYLE&quot;,   &quot;SUAVE&quot;, &quot;SUGAR&quot;, &quot;SUITE&quot;, &quot;SUITS&quot;, &quot;SUNNY&quot;, &quot;SUPER&quot;, &quot;SWEET&quot;, &quot;SWEPT&quot;, &quot;SWIFT&quot;, &quot;SWIMS&quot;,   &quot;SWINE&quot;, &quot;SWING&quot;, &quot;SWIPE&quot;, &quot;SWIRL&quot;, &quot;SWISH&quot;, &quot;TABLE&quot;, &quot;TABOO&quot;, &quot;TACIT&quot;, &quot;TACKY&quot;, &quot;TAKEN&quot;,   &quot;TAKER&quot;, &quot;TAKES&quot;, &quot;TALES&quot;, &quot;TALLY&quot;, &quot;TANGY&quot;, &quot;TAPED&quot;, &quot;TAPES&quot;, &quot;TAPER&quot;, &quot;TAROT&quot;, &quot;TASTE&quot;,   &quot;TASTY&quot;, &quot;TAXES&quot;, &quot;TAXIS&quot;, &quot;TEACH&quot;, &quot;TEAMS&quot;, &quot;TEARS&quot;, &quot;TEARY&quot;, &quot;TEENS&quot;, &quot;TEETH&quot;, &quot;TELEX&quot;,   &quot;TEMPO&quot;, &quot;TENDS&quot;, &quot;TENOR&quot;, &quot;TENSE&quot;, &quot;TENTH&quot;, &quot;TENTS&quot;, &quot;TERMS&quot;, &quot;TERRA&quot;, &quot;TERSE&quot;, &quot;TESTS&quot;,   &quot;TESTY&quot;, &quot;TEXTS&quot;, &quot;THANK&quot;, &quot;THEFT&quot;, &quot;THEIR&quot;, &quot;THEME&quot;, &quot;THERE&quot;, &quot;THESE&quot;, &quot;THINK&quot;, &quot;THIRD&quot;,   &quot;THONG&quot;, &quot;THORN&quot;, &quot;THOSE&quot;, &quot;THREE&quot;, &quot;THREW&quot;, &quot;THROW&quot;, &quot;THUMB&quot;, &quot;THUMP&quot;, &quot;THYME&quot;, &quot;TIARA&quot;,   &quot;TIBIA&quot;, &quot;TICKS&quot;, &quot;TIDAL&quot;, &quot;TIDES&quot;, &quot;TIDY&quot;, &quot;TIERS&quot;, &quot;TIGER&quot;, &quot;TIGHT&quot;, &quot;TILES&quot;, &quot;TIMER&quot;,   &quot;TIMES&quot;, &quot;TIMID&quot;, &quot;TINGE&quot;, &quot;TINTS&quot;, &quot;TIRED&quot;, &quot;TIRES&quot;, &quot;TITAN&quot;, &quot;TITLE&quot;, &quot;TOAST&quot;, &quot;TODAY&quot;,   &quot;TOKEN&quot;, &quot;TOLLS&quot;, &quot;TOMATO&quot;, &quot;TONAL&quot;, &quot;TONES&quot;, &quot;TONIC&quot;, &quot;TOOLS&quot;, &quot;TOOTH&quot;, &quot;TOPIC&quot;, &quot;TORCH&quot;,   &quot;TORSO&quot;, &quot;TOTAL&quot;, &quot;TOUCH&quot;, &quot;TOUGH&quot;, &quot;TOURS&quot;, &quot;TOWEL&quot;, &quot;TOWER&quot;, &quot;TOWNS&quot;, &quot;TOXIC&quot;, &quot;TOXIN&quot;,   &quot;TRACE&quot;, &quot;TRACK&quot;, &quot;TRADE&quot;, &quot;TRAIL&quot;, &quot;TRAIN&quot;, &quot;TRAIT&quot;, &quot;TRAMP&quot;, &quot;TRAPS&quot;, &quot;TRASH&quot;, &quot;TREAD&quot;,   &quot;TREAT&quot;, &quot;TREES&quot;, &quot;TREND&quot;, &quot;TRIAD&quot;, &quot;TRIAL&quot;, &quot;TRIBE&quot;, &quot;TRICK&quot;, &quot;TRIED&quot;, &quot;TRIES&quot;, &quot;TRILL&quot;,   &quot;TRIMS&quot;, &quot;TRIO&quot;, &quot;TRIPS&quot;, &quot;TROLL&quot;, &quot;TROOP&quot;, &quot;TROPE&quot;, &quot;TROPHY&quot;, &quot;TROUT&quot;, &quot;TRUCE&quot;, &quot;TRUCK&quot;,   &quot;TRULY&quot;, &quot;TRUMP&quot;, &quot;TRUNK&quot;, &quot;TRUSS&quot;, &quot;TRUST&quot;, &quot;TRUTH&quot;, &quot;TULIP&quot;, &quot;TUMOR&quot;, &quot;TUNES&quot;, &quot;TUNER&quot;,   &quot;TUNIC&quot;, &quot;TURNS&quot;, &quot;TUTOR&quot;, &quot;TWEED&quot;, &quot;TWEET&quot;, &quot;TWICE&quot;, &quot;TWIGS&quot;, &quot;TWINE&quot;, &quot;TWINS&quot;, &quot;TWIRL&quot;,   &quot;TWIST&quot;, &quot;TYING&quot;, &quot;TYPED&quot;, &quot;TYPES&quot;, &quot;TYPICAL&quot;, &quot;ULCER&quot;, &quot;ULTRA&quot;, &quot;UNCLE&quot;, &quot;UNDER&quot;, &quot;UNDUE&quot;,   &quot;UNION&quot;, &quot;UNITE&quot;, &quot;UNITS&quot;, &quot;UNITY&quot;, &quot;UNTIL&quot;, &quot;UPPER&quot;, &quot;UPSET&quot;, &quot;URBAN&quot;, &quot;URGES&quot;, &quot;URINE&quot;,   &quot;USAGE&quot;, &quot;USERS&quot;, &quot;USING&quot;, &quot;USUAL&quot;, &quot;UTTER&quot;, &quot;VAGUE&quot;, &quot;VALID&quot;, &quot;VALUE&quot;, &quot;VALVE&quot;, &quot;VAPOR&quot;,   &quot;VASES&quot;, &quot;VAULT&quot;, &quot;VEILS&quot;, &quot;VEINS&quot;, &quot;VENUE&quot;, &quot;VENUS&quot;, &quot;VERBS&quot;, &quot;VERGE&quot;, &quot;VERSE&quot;, &quot;VERSO&quot;,   &quot;Verve&quot;, &quot;VESTS&quot;, &quot;VETOES&quot;, &quot;VEXED&quot;, &quot;VIALS&quot;, &quot;VIBES&quot;, &quot;VICAR&quot;, &quot;VICES&quot;, &quot;VIDEO&quot;, &quot;VIEWS&quot;,   &quot;VIGIL&quot;, &quot;VIGOR&quot;, &quot;VILLA&quot;, &quot;VINYL&quot;, &quot;VIOLA&quot;, &quot;VIPER&quot;, &quot;VIRAL&quot;, &quot;VIRGO&quot;, &quot;VIRUS&quot;, &quot;VISAS&quot;,   &quot;VISIT&quot;, &quot;VISOR&quot;, &quot;VISTA&quot;, &quot;VITAL&quot;, &quot;VIVID&quot;, &quot;VIXEN&quot;, &quot;VOCAL&quot;, &quot;VODKA&quot;, &quot;VOGUE&quot;, &quot;VOICE&quot;,   &quot;VOIDS&quot;, &quot;VOILA&quot;, &quot;VOLTS&quot;, &quot;VOMIT&quot;, &quot;VOTED&quot;, &quot;VOTER&quot;, &quot;VOTES&quot;, &quot;VOUCH&quot;, &quot;VOWED&quot;, &quot;VOWEL&quot;,   &quot;WAFER&quot;, &quot;WAGER&quot;, &quot;WAGES&quot;, &quot;WAGON&quot;, &quot;WAIST&quot;, &quot;WAITS&quot;, &quot;WAIVE&quot;, &quot;WAKEN&quot;, &quot;WAKES&quot;, &quot;WALKS&quot;,   &quot;WALLS&quot;, &quot;WALTZ&quot;, &quot;WANDS&quot;, &quot;WANES&quot;, &quot;WANTS&quot;, &quot;WARDS&quot;, &quot;WARES&quot;, &quot;WARMS&quot;, &quot;WARNS&quot;, &quot;WARPS&quot;,   &quot;WARTS&quot;, &quot;WASTE&quot;, &quot;WATCH&quot;, &quot;WATER&quot;, &quot;WATTS&quot;, &quot;WAVED&quot;, &quot;WAVER&quot;, &quot;WAVES&quot;, &quot;WAXED&quot;, &quot;WAXES&quot;,   &quot;WEAKS&quot;, &quot;WEALTH&quot;, &quot;WEARS&quot;, &quot;WEARY&quot;, &quot;WEAVE&quot;, &quot;WEDGE&quot;, &quot;WEEDS&quot;, &quot;WEEDY&quot;, &quot;WEEKS&quot;, &quot;WEEPS&quot;,   &quot;WEIGH&quot;, &quot;WEIRD&quot;, &quot;WELLS&quot;, &quot;WELSH&quot;, &quot;WELTS&quot;, &quot;WENCH&quot;, &quot;WESTS&quot;, &quot;WHACK&quot;, &quot;WHALE&quot;, &quot;WHARF&quot;,   &quot;WHEAT&quot;, &quot;WHEEL&quot;, &quot;WHELK&quot;, &quot;WHERE&quot;, &quot;WHICH&quot;, &quot;WHILE&quot;, &quot;WHIMS&quot;, &quot;WHINE&quot;, &quot;WHINY&quot;, &quot;WHIPS&quot;,   &quot;WHIRL&quot;, &quot;WHISK&quot;, &quot;WHITE&quot;, &quot;WHOLE&quot;, &quot;WHOOP&quot;, &quot;WHOSE&quot;, &quot;WICCA&quot;, &quot;WICKS&quot;, &quot;WIDEN&quot;, &quot;WIDER&quot;,   &quot;WIDOW&quot;, &quot;WIDTH&quot;, &quot;WIELD&quot;, &quot;WIGHT&quot;, &quot;WILDD&quot;, &quot;WILDS&quot;, &quot;WILES&quot;, &quot;WILLS&quot;, &quot;WINCH&quot;, &quot;WINDS&quot;,   &quot;WINDY&quot;, &quot;WINES&quot;, &quot;WINGS&quot;, &quot;WINKS&quot;, &quot;WIPER&quot;, &quot;WIPES&quot;, &quot;WIRED&quot;, &quot;WIRES&quot;, &quot;WISER&quot;, &quot;WISES&quot;,   &quot;WISHC&quot;, &quot;WISHD&quot;, &quot;WITCH&quot;, &quot;WITTY&quot;, &quot;WIVES&quot;, &quot;WIZARD&quot;, &quot;WOMAN&quot;, &quot;WOMEN&quot;, &quot;WOODS&quot;, &quot;WOODY&quot;,   &quot;WOOLS&quot;, &quot;WOOLY&quot;, &quot;WORDS&quot;, &quot;WORDY&quot;, &quot;WORKS&quot;, &quot;WORLD&quot;, &quot;WORMS&quot;, &quot;WORRI&quot;, &quot;WORRY&quot;, &quot;WORSE&quot;,   &quot;WORST&quot;, &quot;WORTH&quot;, &quot;WOULD&quot;, &quot;WOUND&quot;, &quot;WOVEN&quot;, &quot;WRACK&quot;, &quot;WRAPS&quot;, &quot;WRATH&quot;, &quot;WREAK&quot;, &quot;WRECK&quot;,   &quot;WRENS&quot;, &quot;WREST&quot;, &quot;WRING&quot;, &quot;WRIST&quot;, &quot;WRITE&quot;, &quot;WRONG&quot;, &quot;WROTH&quot;, &quot;WRUNG&quot;, &quot;WRYLY&quot;, &quot;YACHT&quot;,   &quot;YARDS&quot;, &quot;YARNS&quot;, &quot;YAWNS&quot;, &quot;YEARN&quot;, &quot;YEARS&quot;, &quot;YEAST&quot;, &quot;YELLS&quot;, &quot;YEMEN&quot;, &quot;YIELD&quot;, &quot;YODEL&quot;,   &quot;YOGA&quot;, &quot;YOKES&quot;, &quot;YOLKS&quot;, &quot;YOUNG&quot;, &quot;YOURS&quot;, &quot;YOUTH&quot;, &quot;YUMMY&quot;, &quot;YURTS&quot;, &quot;ZEBRA&quot;, &quot;ZENITH&quot;,   &quot;ZEROS&quot;, &quot;ZESTY&quot;, &quot;ZILCH&quot;, &quot;ZINCS&quot;, &quot;ZION&quot;, &quot;ZOOMS&quot;, &quot;ZORRO&quot;  ];</p>
+
+<p> const validWordsLookupSet = new Set([...targetWordPool, ...explicitDictionary]);</p>
+
+<p> let wdSecretWord = &quot;&quot;;  let wdCurrentRow = 0;  let wdCurrentCol = 0;  let wdGameOver = false;  let wdLetterStatuses = {};   const wdMaxRows = 6;  const wdMaxCols = 5;</p>
+
+<p> const wordleGridEl = document.getElementById(&quot;wordleGrid&quot;);  const wordleKeyboardEl = document.getElementById(&quot;wordleKeyboard&quot;);  const wordleStatusEl = document.getElementById(&quot;wordleStatus&quot;);  const wordleToggleBtn = document.getElementById(&quot;wordleToggleBtn&quot;);  const wordleModal = document.getElementById(&quot;wordleModal&quot;);</p>
+
+<p> function initWordleGame() {  wdSecretWord = targetWordPool[Math.floor(Math.random() * targetWordPool.length)];  wdCurrentRow = 0;  wdCurrentCol = 0;  wdGameOver = false;  wdLetterStatuses = {};  wordleStatusEl.textContent = &quot;Guess the 5-letter word!&quot;;  wordleStatusEl.style.color = &quot;#ffeb3b&quot;;</p>
+
+<p> wordleGridEl.innerHTML = &quot;&quot;;  for (let r = 0; r < wdMaxRows; r++) {  const rowEl = document.createElement(&quot;div&quot;);  rowEl.classList.add(&quot;wordle-row&quot;);  for (let c = 0; c < wdMaxCols; c++) {  const cellEl = document.createElement(&quot;div&quot;);  cellEl.classList.add(&quot;wordle-cell&quot;);  cellEl.id = &#96;wd-c-${r}-${c}&#96;;  rowEl.appendChild(cellEl);  }  wordleGridEl.appendChild(rowEl);  }</p>
+
+<p> renderWordleKeyboard();  }</p>
+
+<p> function renderWordleKeyboard() {  const rows = [  [&quot;Q&quot;, &quot;W&quot;, &quot;E&quot;, &quot;R&quot;, &quot;T&quot;, &quot;Y&quot;, &quot;U&quot;, &quot;I&quot;, &quot;O&quot;, &quot;P&quot;],  [&quot;A&quot;, &quot;S&quot;, &quot;D&quot;, &quot;F&quot;, &quot;G&quot;, &quot;H&quot;, &quot;J&quot;, &quot;K&quot;, &quot;L&quot;],  [&quot;ENTER&quot;, &quot;Z&quot;, &quot;X&quot;, &quot;C&quot;, &quot;V&quot;, &quot;B&quot;, &quot;N&quot;, &quot;M&quot;, &quot;BACK&quot;]  ];</p>
+
+<p> wordleKeyboardEl.innerHTML = &quot;&quot;;  rows.forEach(row => {  const rowEl = document.createElement(&quot;div&quot;);  rowEl.classList.add(&quot;keyboard-row&quot;);  row.forEach(key => {  const keyEl = document.createElement(&quot;button&quot;);  keyEl.classList.add(&quot;kb-key&quot;);  keyEl.textContent = key;  keyEl.id = &#96;kb-${key}&#96;;  if (key === &quot;ENTER&quot; || key === &quot;BACK&quot;) {  keyEl.classList.add(&quot;wide&quot;);  }  keyEl.addEventListener(&quot;click&quot;, () => handleWordleInput(key));  rowEl.appendChild(keyEl);  });  wordleKeyboardEl.appendChild(rowEl);  });  }</p>
+
+<p> function updateKeyboardKeyColors() {  for (const letter in wdLetterStatuses) {  const keyEl = document.getElementById(&#96;kb-${letter}&#96;);  if (keyEl) {  keyEl.classList.remove(&quot;wd-correct&quot;, &quot;wd-present&quot;, &quot;wd-absent&quot;);  keyEl.classList.add(&#96;wd-${wdLetterStatuses[letter]}&#96;);  }  }  }</p>
+
+<p> function handleWordleInput(key) {  if (wdGameOver) return;</p>
+
+<p> if (wordleStatusEl.textContent.startsWith(&quot;&#9888;&#65039;&quot;)) {  wordleStatusEl.textContent = &quot;Guess the 5-letter word!&quot;;  wordleStatusEl.style.color = &quot;#ffeb3b&quot;;  }</p>
+
+<p> if (key === &quot;BACK&quot;) {  if (wdCurrentCol > 0) {  wdCurrentCol--;  const cell = document.getElementById(&#96;wd-c-${wdCurrentRow}-${wdCurrentCol}&#96;);  cell.textContent = &quot;&quot;;  }  } else if (key === &quot;ENTER&quot;) {  if (wdCurrentCol === wdMaxCols) {  evaluateWordleRow();  } else {  wordleStatusEl.textContent = &quot;&#9888;&#65039; Word must be 5 letters!&quot;;  wordleStatusEl.style.color = &quot;#ff9800&quot;;  }  } else {  if (wdCurrentCol < wdMaxCols &amp;&amp; key.length === 1 &amp;&amp; key.match(/[A-Z]/i)) {  const cell = document.getElementById(&#96;wd-c-${wdCurrentRow}-${wdCurrentCol}&#96;);  cell.textContent = key.toUpperCase();  wdCurrentCol++;  }  }  }</p>
+
+<p> function evaluateWordleRow() {  let guess = &quot;&quot;;  for (let c = 0; c < wdMaxCols; c++) {  guess += document.getElementById(&#96;wd-c-${wdCurrentRow}-${c}&#96;).textContent;  }</p>
+
+<p> if (!validWordsLookupSet.has(guess)) {  wordleStatusEl.textContent = &quot;&#9888;&#65039; Not a valid word!&quot;;  wordleStatusEl.style.color = &quot;#ff9800&quot;;  return;   }</p>
+
+<p> let targetLetters = wdSecretWord.split(&quot;&quot;);  let evaluation = Array(wdMaxCols).fill(&quot;absent&quot;);</p>
+
+<p> for (let c = 0; c < wdMaxCols; c++) {  if (guess[c] === wdSecretWord[c]) {  evaluation[c] = &quot;correct&quot;;  targetLetters[c] = null;  }  }</p>
+
+<p> for (let c = 0; c < wdMaxCols; c++) {  if (evaluation[c] === &quot;correct&quot;) continue;  const idx = targetLetters.indexOf(guess[c]);  if (idx > -1) {  evaluation[c] = &quot;present&quot;;  targetLetters[idx] = null;  }  }</p>
+
+<p> for (let c = 0; c < wdMaxCols; c++) {  const cell = document.getElementById(&#96;wd-c-${wdCurrentRow}-${c}&#96;);  const letter = guess[c];  const state = evaluation[c];    cell.classList.add(&#96;wd-${state}&#96;);</p>
+
+<p> if (state === &quot;correct&quot;) {  wdLetterStatuses[letter] = &quot;correct&quot;;  } else if (state === &quot;present&quot; &amp;&amp; wdLetterStatuses[letter] !== &quot;correct&quot;) {  wdLetterStatuses[letter] = &quot;present&quot;;  } else if (state === &quot;absent&quot; &amp;&amp; !wdLetterStatuses[letter]) {  wdLetterStatuses[letter] = &quot;absent&quot;;  }  }</p>
+
+<p> updateKeyboardKeyColors();</p>
+
+<p> if (guess === wdSecretWord) {  wordleStatusEl.textContent = &quot;&#55356;&#57225; Epic! You solved the word!&quot;;  wordleStatusEl.style.color = &quot;#a5d6a7&quot;;  wdGameOver = true;  return;  }</p>
+
+<p> wdCurrentRow++;  wdCurrentCol = 0;</p>
+
+<p> if (wdCurrentRow === wdMaxRows) {  wordleStatusEl.textContent = &#96;&#55357;&#56485; Word was: ${wdSecretWord}. Click Next!&#96;;  wordleStatusEl.style.color = &quot;#ef9a9a&quot;;  wdGameOver = true;  } else {  wordleStatusEl.textContent = &quot;Guess the 5-letter word!&quot;;  wordleStatusEl.style.color = &quot;#ffeb3b&quot;;  }  }</p>
+
+<p> document.addEventListener(&quot;keydown&quot;, (e) => {  if (!wordleModal.classList.contains(&quot;show&quot;)) return;  if (e.altKey || e.ctrlKey || e.metaKey) return;</p>
+
+<p> if (e.key === &quot;Enter&quot;) {  e.preventDefault();   handleWordleInput(&quot;ENTER&quot;);  } else if (e.key === &quot;Backspace&quot;) {  handleWordleInput(&quot;BACK&quot;);  } else {  handleWordleInput(e.key.toUpperCase());  }  });</p>
+
+<p> wordleToggleBtn.addEventListener(&quot;click&quot;, () => {  if (wordleModal.classList.contains(&quot;show&quot;)) {  wordleModal.classList.remove(&quot;show&quot;);  } else {  msModal.classList.remove(&quot;show&quot;);   spinnerModal.classList.remove(&quot;show&quot;);  wordleModal.classList.add(&quot;show&quot;);  wordleToggleBtn.blur();   if (!wdSecretWord) {  initWordleGame();  }  }  });</p>
+
+<p> wordleModal.addEventListener(&quot;click&quot;, (e) => {  if (e.target === wordleModal) {  wordleModal.classList.remove(&quot;show&quot;);  }  });</p>
+
+<p> document.getElementById(&quot;wdCloseBtn&quot;).addEventListener(&quot;click&quot;, () => {  wordleModal.classList.remove(&quot;show&quot;);  });</p>
+
+<p> document.getElementById(&quot;wdResetBtn&quot;).addEventListener(&quot;click&quot;, () => {  initWordleGame();  });</p>
+
+<p>  // --- DIGITAL FIDGET SPINNER PHYSICS LOGIC ENGINE ---  let spRotation = 0;  let spVelocity = 0;  let spIsDragging = false;  let spPreviousAngle = 0;  let spLastMoveTime = 0;  const spFriction = 0.982; // Damping coefficients decay over execution runtime cycles</p>
+
+<p> const spinnerSvg = document.getElementById(&quot;fidgetSpinner&quot;);  const spinnerStatus = document.getElementById(&quot;spinnerStatus&quot;);  const spinnerToggleBtn = document.getElementById(&quot;spinnerToggleBtn&quot;);  const spinnerModal = document.getElementById(&quot;spinnerModal&quot;);</p>
+
+<p> function getWorkspaceAngle(clientX, clientY) {  const rect = spinnerSvg.getBoundingClientRect();  const centerX = rect.left + rect.width / 2;  const centerY = rect.top + rect.height / 2;  return Math.atan2(clientY - centerY, clientX - centerX);  }</p>
+
+<p> function handleSpinnerStart(e) {  const clientX = e.touches ? e.touches[0].clientX : e.clientX;  const clientY = e.touches ? e.touches[0].clientY : e.clientY;  spIsDragging = true;  spVelocity = 0;  spPreviousAngle = getWorkspaceAngle(clientX, clientY);  spLastMoveTime = performance.now();  spinnerSvg.style.cursor = &quot;grabbing&quot;;  }</p>
+
+<p> function handleSpinnerMove(e) {  if (!spIsDragging) return;  const clientX = e.touches ? e.touches[0].clientX : e.clientX;  const clientY = e.touches ? e.touches[0].clientY : e.clientY;  const currentAngle = getWorkspaceAngle(clientX, clientY);  const now = performance.now();  const dt = now - spLastMoveTime;</p>
+
+<p> let deltaAngle = currentAngle - spPreviousAngle;  // Handle cross-quadrant edge cases  if (deltaAngle > Math.PI) deltaAngle -= 2 * Math.PI;  if (deltaAngle < -Math.PI) deltaAngle += 2 * Math.PI;</p>
+
+<p> spRotation += deltaAngle * (180 / Math.PI);  spinnerSvg.style.transform = &#96;rotate(${spRotation}deg)&#96;;</p>
+
+<p> if (dt > 0) {  // Degrees per millisecond calculations converted safely  spVelocity = (deltaAngle * (180 / Math.PI)) / dt;  }</p>
+
+<p> spPreviousAngle = currentAngle;  spLastMoveTime = now;  }</p>
+
+<p> function handleSpinnerEnd() {  if (!spIsDragging) return;  spIsDragging = false;  spinnerSvg.style.cursor = &quot;grab&quot;;    // Map instantaneous velocity to matching rotational frames  spVelocity = spVelocity * 16.66;    // Safety clamp velocities  if (spVelocity > 45) spVelocity = 45;  if (spVelocity < -45) spVelocity = -45;  }</p>
+
+<p> // Attach layout capture listeners safely supporting hardware environments  spinnerSvg.addEventListener(&quot;mousedown&quot;, handleSpinnerStart);  window.addEventListener(&quot;mousemove&quot;, handleSpinnerMove);  window.addEventListener(&quot;mouseup&quot;, handleSpinnerEnd);</p>
+
+<p> spinnerSvg.addEventListener(&quot;touchstart&quot;, handleSpinnerStart, { passive: false });  window.addEventListener(&quot;touchmove&quot;, handleSpinnerMove, { passive: false });  window.addEventListener(&quot;touchend&quot;, handleSpinnerEnd);</p>
+
+<p> // Core continuous RAF processing framework  function processSpinnerPhysicsLoop() {  if (!spIsDragging &amp;&amp; Math.abs(spVelocity) > 0.005) {  spRotation += spVelocity;  spVelocity *= spFriction;  spinnerSvg.style.transform = &#96;rotate(${spRotation}deg)&#96;;  } else if (!spIsDragging) {  spVelocity = 0;  }</p>
+
+<p> // Synthesize responsive RPM scores  const computedRpm = Math.round(Math.abs(spVelocity) * 60 / 360 * 60);  spinnerStatus.textContent = &#96;RPM: ${computedRpm} | Click &amp; fling to spin!&#96;;</p>
+
+<p> requestAnimationFrame(processSpinnerPhysicsLoop);  }  requestAnimationFrame(processSpinnerPhysicsLoop);</p>
+
+<p> // Popover trigger setup  spinnerToggleBtn.addEventListener(&quot;click&quot;, () => {  if (spinnerModal.classList.contains(&quot;show&quot;)) {  spinnerModal.classList.remove(&quot;show&quot;);  } else {  msModal.classList.remove(&quot;show&quot;);  wordleModal.classList.remove(&quot;show&quot;);  spinnerModal.classList.add(&quot;show&quot;);  spinnerToggleBtn.blur();  }  });</p>
+
+<p> spinnerModal.addEventListener(&quot;click&quot;, (e) => {  if (e.target === spinnerModal) {  spinnerModal.classList.remove(&quot;show&quot;);  }  });</p>
+
+<p> document.getElementById(&quot;spCloseBtn&quot;).addEventListener(&quot;click&quot;, () => {  spinnerModal.classList.remove(&quot;show&quot;);  });</p>
+
+<p>  // --- WEB AUDIO API HIP-HOP DRUM MACHINE SYNTHESIZER ---  let audioCtx = null;  let masterGain = null;  let beatInterval = null;  let isPlaying = false;  let currentStep = 0;</p>
+
+<p> const beatPattern = [4, 3, 3, 3, 5, 3, 1, 3, 4, 1, 3, 3, 5, 3, 3, 3];</p>
+
+<p> function initAudio() {  if (!audioCtx) {  audioCtx = new (window.AudioContext || window.webkitAudioContext)();  masterGain = audioCtx.createGain();  masterGain.connect(audioCtx.destination);  }  }</p>
+
+<p> function playKick(time) {  const osc = audioCtx.createOscillator();  const gain = audioCtx.createGain();  osc.connect(gain);  gain.connect(masterGain);</p>
+
+<p> osc.frequency.setValueAtTime(150, time);  osc.frequency.exponentialRampToValueAtTime(0.01, time + 0.15);</p>
+
+<p> gain.gain.setValueAtTime(1, time);  gain.gain.exponentialRampToValueAtTime(0.01, time + 0.15);</p>
+
+<p> osc.start(time);  osc.stop(time + 0.15);  }</p>
+
+<p> function playSnare(time) {  const bufferSize = audioCtx.sampleRate * 0.2;  const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);  const data = buffer.getChannelData(0);  for (let i = 0; i < bufferSize; i++) {  data[i] = Math.random() * 2 - 1;  }</p>
+
+<p> const noiseNode = audioCtx.createBufferSource();  noiseNode.buffer = buffer;</p>
+
+<p> const filter = audioCtx.createBiquadFilter();  filter.type = 'bandpass';  filter.frequency.value = 1000;</p>
+
+<p> const gain = audioCtx.createGain();  gain.gain.setValueAtTime(0.7, time);  gain.gain.exponentialRampToValueAtTime(0.01, time + 0.2);</p>
+
+<p> noiseNode.connect(filter);  filter.connect(gain);  gain.connect(masterGain);</p>
+
+<p> noiseNode.start(time);  noiseNode.stop(time + 0.2);  }</p>
+
+<p> function playHiHat(time) {  const osc = audioCtx.createOscillator();  const gain = audioCtx.createGain();  osc.type = 'triangle';  osc.frequency.setValueAtTime(10000, time);</p>
+
+<p> gain.gain.setValueAtTime(0.15, time);  gain.gain.exponentialRampToValueAtTime(0.01, time + 0.05);</p>
+
+<p> osc.connect(gain);  gain.connect(masterGain);</p>
+
+<p> osc.start(time);  osc.stop(time + 0.05);  }</p>
+
+<p> function startHipHopBeat() {  if (isPlaying) return;  isPlaying = true;</p>
+
+<p> beatInterval = setInterval(() => {  if (audioCtx &amp;&amp; audioCtx.state === 'suspended') {  audioCtx.resume();  }</p>
+
+<p> const time = audioCtx.currentTime;  const patternCode = beatPattern[currentStep % beatPattern.length];</p>
+
+<p> if (patternCode === 1) playKick(time);  if (patternCode === 2) playSnare(time);  if (patternCode === 3) playHiHat(time);  if (patternCode === 4) { playKick(time); playHiHat(time); }  if (patternCode === 5) { playSnare(time); playHiHat(time); }</p>
+
+<p> currentStep++;  }, 166);  }</p>
+
+<p> function stopHipHopBeat() {  isPlaying = false;  if (beatInterval) {  clearInterval(beatInterval);  }  }</p>
+
+<p> const sliderEl = document.getElementById(&quot;menuVolumeSlider&quot;);  const volumeValText = document.getElementById(&quot;volumeVal&quot;);  const statusMsg = document.getElementById(&quot;statusMsg&quot;);</p>
+
+<p> sliderEl.addEventListener(&quot;input&quot;, function(e) {  const volumePercent = e.target.value;  volumeValText.textContent = volumePercent + &quot;%&quot;;  initAudio();</p>
+
+<p> if (volumePercent == 0) {  statusMsg.textContent = &quot;&#9208;&#65039; Drum loop muted.&quot;;  if (masterGain) masterGain.gain.setValueAtTime(0, audioCtx.currentTime);  stopHipHopBeat();  } else {  statusMsg.textContent = &quot;&#55358;&#56641; Generating upbeat Hip-Hop loops offline!&quot;;  masterGain.gain.setValueAtTime(volumePercent / 100, audioCtx.currentTime);  if (!isPlaying) {  startHipHopBeat();  }  }  });</p>
+
+<p> // --- TIMER LOGIC ---  const startTime = Date.now();  function initTimer() {  setInterval(() => {  const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);  const mins = Math.floor(elapsedSeconds / 60);  const secs = elapsedSeconds % 60;    if (mins > 0) {  document.getElementById(&quot;timerVal&quot;).textContent = &#96;${mins}m ${secs}s&#96;;  } else {  document.getElementById(&quot;timerVal&quot;).textContent = &#96;${secs}s&#96;;  }  }, 1000);  }</p>
+
+<p> // Initialize random web links instantly on page load  window.onload = function() {  updateLinks();  setInterval(updateLinks, 5000);  initTimer();  };  </script> </body> </html></p>
