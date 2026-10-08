@@ -487,6 +487,24 @@
         </div>
     </div>
 
+    <!-- Clicker Popover Box -->
+    <!-- Your existing button, just make sure it has an id -->
+<button id="goo_clickerToggleBtn">Click Me</button>
+
+<!-- Counter display (place wherever you want it) -->
+<span id="clickerCount">0</span>
+
+<script>
+  let count = 0;
+  const counter = document.getElementById("clickerCount");
+  const btn = document.getElementById("myClickerBtn");
+
+  btn.addEventListener("click", () => {
+    count++;
+    counter.textContent = count;
+  });
+</script>   
+    
     <!-- Fidget Spinner Popover Box -->
     <div class="game-modal" id="spinnerModal">
         <div class="game-card" style="width: 320px;">
