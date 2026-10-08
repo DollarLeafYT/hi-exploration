@@ -168,7 +168,7 @@
         h1 {
             font-size: 8rem !important;
             font-weight: 700 !important;
-            color: #ffffff !important;
+            color: #ffffff;
             text-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
             letter-spacing: -2px !important;
             animation: float 4s ease-in-out infinite !important;
@@ -199,11 +199,12 @@
             text-decoration: none !important;
             border-radius: 50px !important;
             font-weight: 700 !important;
-            transition: transform 0.2s ease, background-color 0.2s ease !important;
+            transition: transform 0.2s ease, background-color 0.2s ease, opacity 0.3s ease !important;
             backdrop-filter: blur(5px) !important;
             border: 1px solid rgba(255, 255, 255, 0.3) !important;
             min-width: 150px !important;
             transform: translate3d(0,0,0);
+            opacity: 1;
         }
 
         .dynamic-link:hover {
@@ -371,15 +372,29 @@
             50% { transform: translate3d(0,-20px,0); }
         }
 
+        /* Continuous Color Spectrum Animation Keyframes */
         @keyframes rgbFadeAnimation {
-            0% { color: #ff3333; }
-            33% { color: #ffff33; }
-            66% { color: #3399ff; }
-            100% { color: #ff3333; }
+            0% { color: #ff3333; border-color: #ff3333; }
+            16% { color: #ffff33; border-color: #ffff33; }
+            33% { color: #33ff33; border-color: #33ff33; }
+            50% { color: #33ffff; border-color: #33ffff; }
+            66% { color: #3333ff; border-color: #3333ff; }
+            83% { color: #ff33ff; border-color: #ff33ff; }
+            100% { color: #ff3333; border-color: #ff3333; }
         }
 
-        .gay-mode-on h1, .gay-mode-on p, .gay-mode-on a, .gay-mode-on button {
-            animation: rgbFadeAnimation 5s linear infinite !important;
+        /* Targeted specific styling fixes for Top-level components during active theme state */
+        .gay-mode-on #greetingH1,
+        .gay-mode-on #timerContainer,
+        .gay-mode-on .menu-btn,
+        .gay-mode-on p,
+        .gay-mode-on .dynamic-link,
+        .gay-mode-on .game-control-btn,
+        .gay-mode-on .ms-cell,
+        .gay-mode-on .wordle-cell,
+        .gay-mode-on .kb-key {
+            animation: rgbFadeAnimation 4s linear infinite !important;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
         }
 
         /* Hardware Accelerated Fidget Spinner Element styling */
@@ -478,7 +493,7 @@
                 <button id="spCloseBtn" class="game-control-btn" style="background: rgba(244, 67, 54, 0.25); border-color: rgba(244, 67, 54, 0.4);">✕</button>
             </div>
             <div id="spinnerContainer" style="position: relative; width: 220px; height: 220px; display: flex; justify-content: center; align-items: center; margin: 15px 0; user-select: none; touch-action: none;">
-                <svg id="fidgetSpinner" viewBox="0 0 200 200" style="width: 100%; height: 100%; cursor: grab; transform: rotate3d(0,0,1,0deg);">
+                <svg id="fidgetSpinner" viewBox="0 0 200 200" style="width: 100%; height: 100%; cursor: grab; transform: rotate(0deg);">
                     <g transform="rotate(0, 100, 100)">
                         <line x1="100" y1="100" x2="100" y2="45" stroke="#ffffff" stroke-width="24" stroke-linecap="round" />
                         <circle cx="100" cy="45" r="24" fill="#ffffff" />
@@ -521,13 +536,24 @@
         function updateLinks() {
             const linkElem1 = document.getElementById("link1");
             const linkElem2 = document.getElementById("link2");
-            const choice1 = generateRandomLink();
-            let choice2 = generateRandomLink();
-            while (choice1.url === choice2.url) { choice2 = generateRandomLink(); }
-            if(linkElem1 && linkElem2) {
+            if (!linkElem1 || !linkElem2) return;
+
+            // Fade elements down seamlessly
+            linkElem1.style.opacity = 0;
+            linkElem2.style.opacity = 0;
+
+            setTimeout(() => {
+                const choice1 = generateRandomLink();
+                let choice2 = generateRandomLink();
+                while (choice1.url === choice2.url) { choice2 = generateRandomLink(); }
+                
                 linkElem1.href = choice1.url; linkElem1.textContent = choice1.text;
                 linkElem2.href = choice2.url; linkElem2.textContent = choice2.text;
-            }
+                
+                // Fade back in smoothly
+                linkElem1.style.opacity = 1;
+                linkElem2.style.opacity = 1;
+            }, 300);
         }
 
         // Morph mechanics
@@ -669,7 +695,7 @@
         const msModal = document.getElementById("minesweeperModal");
         document.getElementById("minesweeperToggleBtn").addEventListener("click", () => {
             msModal.classList.toggle("show"); document.getElementById("wordleModal").classList.remove("show"); document.getElementById("spinnerModal").classList.remove("show");
-            isSpinnerActive = false; // Turn off spinner calculations
+            isSpinnerActive = false;
             initMinesweeper();
         });
         document.getElementById("msCloseBtn").addEventListener("click", () => msModal.classList.remove("show"));
@@ -749,15 +775,15 @@
         const wordleModal = document.getElementById("wordleModal");
         document.getElementById("wordleToggleBtn").addEventListener("click", () => {
             wordleModal.classList.toggle("show"); msModal.classList.remove("show"); document.getElementById("spinnerModal").classList.remove("show");
-            isSpinnerActive = false; // Turn off spinner calculations
+            isSpinnerActive = false;
             initWordleGame();
         });
         document.getElementById("wdCloseBtn").addEventListener("click", () => wordleModal.classList.remove("show"));
         document.getElementById("wdResetBtn").addEventListener("click", initWordleGame);
 
-        // --- SPINNER (LAZY LOAD PERFORMANCE OPTIMIZED) ---
+        // --- SPINNER (STUTTER-FREE FLUID INTERPOLATION) ---
         let spRotation = 0, spVelocity = 0, spIsDragging = false, spPreviousAngle = 0;
-        let isSpinnerActive = false; // Gate keeper toggle to prevent background lagging
+        let isSpinnerActive = false;
         const spinnerSvg = document.getElementById("fidgetSpinner");
 
         function getAngle(x, y) {
@@ -781,7 +807,6 @@
 
         window.addEventListener("mouseup", () => spIsDragging = false);
 
-        // Mobile touch screen support optimization gates
         spinnerSvg.addEventListener("touchstart", (e) => {
             if(!isSpinnerActive) return;
             spIsDragging = true; spVelocity = 0; spPreviousAngle = getAngle(e.touches[0].clientX, e.touches[0].clientY);
@@ -799,17 +824,15 @@
         window.addEventListener("touchend", () => spIsDragging = false);
 
         function spinnerLoop() {
-            // Lazy evaluate: If overlay box is hidden, immediately quit execution thread loop to stop lag
             if (!isSpinnerActive) {
                 requestAnimationFrame(spinnerLoop);
                 return;
             }
-
             if (!spIsDragging && Math.abs(spVelocity) > 0.05) {
-                spRotation += spVelocity; spVelocity *= 0.98;
+                spRotation += spVelocity; spVelocity *= 0.985; // Decelerates gradually
                 spinnerSvg.style.transform = `translate3d(0,0,0) rotate(${spRotation}deg)`;
             }
-            document.getElementById("spinnerStatus").textContent = `RPM: ${Math.round(Math.abs(spVelocity) * 10)} | Drag to spin!`;
+            document.getElementById("spinnerStatus").textContent = `RPM: ${Math.round(Math.abs(spVelocity) * 12)} | Drag to spin!`;
             requestAnimationFrame(spinnerLoop);
         }
         requestAnimationFrame(spinnerLoop);
@@ -817,11 +840,11 @@
         const spinnerModal = document.getElementById("spinnerModal");
         document.getElementById("spinnerToggleBtn").addEventListener("click", () => {
             spinnerModal.classList.toggle("show"); msModal.classList.remove("show"); wordleModal.classList.remove("show");
-            isSpinnerActive = spinnerModal.classList.contains("show"); // Wake up loop only if display is active
+            isSpinnerActive = spinnerModal.classList.contains("show");
         });
         document.getElementById("spCloseBtn").addEventListener("click", () => {
             spinnerModal.classList.remove("show");
-            isSpinnerActive = false; // Freeze loop instantly
+            isSpinnerActive = false;
         });
 
         // --- AUDIO ENGINE ---
@@ -847,9 +870,9 @@
             if (vol > 0 && !isPlaying) {
                 isPlaying = true;
                 beatInterval = setInterval(() => {
-                    playSound(60, "sine", 0.15); // Kick
-                    setTimeout(() => playSound(1000, "triangle", 0.05), 150); // Hat
-                }, 300);
+                    playSound(60, "sine", 0.15); // Kick drum note
+                    setTimeout(() => playSound(1000, "triangle", 0.05), 150); // High-hat snare
+                }, 350);
             } else if (vol == 0 && isPlaying) {
                 clearInterval(beatInterval); isPlaying = false;
             }
@@ -864,7 +887,11 @@
             }
         }, 1000);
 
-        window.onload = () => { updateLinks(); setInterval(updateLinks, 7000); };
+        // Slow loop linking logic to completely eliminate performance throttling
+        window.onload = () => { 
+            updateLinks(); 
+            setInterval(updateLinks, 10000); // Trigger search update check every 10 seconds smoothly
+        };
     </script>
 </body>
 </html>
